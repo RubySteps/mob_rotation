@@ -57,10 +57,24 @@ describe MobRotator do
       expect(output.mobsters.join).to include("Navigator Phoebe")
     end
   end
+
+  describe "#add_mobster" do
+    let(:mob_rotator) { MobRotator.new(foo) }
+    let(:foo) { "test.txt" }
+
+    it "adds a mobster to the file" do
+
+      mob_rotator.add_mobster 'Jackie'
+      mob_rotator.add_mobster 'Phil'
+      expect(File.read(foo)).to include('Jackie')
+      expect(File.read(foo)).to include('Phil')
+    end
+  end
 end
 
 # DONE show mobster should display who navigates and who is driver ****
-# method to add / remove mobsters ***
+# DONE method to add
+# remove mobsters ***
 # remove dependency to / with file ***
 # DONE give the describe block a name **
 # operating on standard out... would it be worth it to refactor? **

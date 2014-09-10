@@ -5,6 +5,7 @@ class MobRotator
     @lines = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
     @mob_file_name = mob_file_name
   end
+  
   def show_mobsters()
     @lines.each_with_index do |person, index|
       case index
@@ -15,6 +16,12 @@ class MobRotator
       else
         puts "Mobster #{person}"
       end
+    end
+  end
+
+  def add_mobster(mobster)
+    File.open(@mob_file_name, 'a') do |file|
+      file << mobster
     end
   end
   
