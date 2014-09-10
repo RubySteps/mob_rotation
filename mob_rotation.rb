@@ -5,16 +5,20 @@ class MobRotator
     @lines = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
     @mob_file_name = mob_file_name
   end
-  
+
+  def write(text)
+    puts text
+  end
+
   def show_mobsters()
     @lines.each_with_index do |person, index|
       case index
       when 0
-        puts "Driver #{person}"
+        write "Driver #{person}"
       when 1
-        puts "Navigator #{person}"
+        write "Navigator #{person}"
       else
-        puts "Mobster #{person}"
+        write "Mobster #{person}"
       end
     end
   end
