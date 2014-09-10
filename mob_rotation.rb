@@ -29,6 +29,12 @@ class MobRotator
     end
   end
   
+  def remove_mobster(mobster)
+    File.open(@mob_file_name, 'w') do |file|
+      @lines.each {|l| file << l unless l.strip == mobster }
+    end
+  end
+
   def rotate(rotation_time)
     @lines << @lines.shift if rotation_time
     
@@ -36,6 +42,7 @@ class MobRotator
       @lines.each {|l| file << l }
     end
   end
+
   
   def time_to_rotate
     puts "Time to rotate!"

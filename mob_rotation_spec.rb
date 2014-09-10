@@ -1,4 +1,5 @@
 require_relative 'mob_rotation'
+require "fileutils"
 
 describe do
   it "prints out the rotation order" do
@@ -70,7 +71,38 @@ describe MobRotator do
       expect(File.read(foo)).to include('Phil')
     end
   end
+  
+  describe "#remove_mobster" do
+    let(:mob_rotator) { MobRotator.new(foo) }
+    let(:foo) { "test_remove.txt" }
+    
+    before do
+      FileUtils.rm_f(foo)
+      File.open(foo, "w") do |file|
+        file << "Bob\n" << "Phoebe\n" << "Joe"
+      end
+    end
+
+    it "removes a mobster from the file" do
+      mob_rotator.remove_mobster "Bob"
+      expect(File.read(foo)).not_to include('Bob')
+
+    end
+  end    
 end
+
+# adding remove mobster feature ----
+# naming the acteptance---
+# add timer feature---
+# refactor to dependency injection --
+# seperating implementation from the script --
+# connect the app with ruby lobby api * -
+# add new api via CLI-
+# introducing helper_spec(moving)-
+
+# do we keep features that are done or move to changelog?
+# focus on refactoring vs adding features?
+# adding directory structure
 
 # DONE show mobster should display who navigates and who is driver ****
 # DONE method to add
@@ -79,7 +111,6 @@ end
 # DONE give the describe block a name **
 # operating on standard out... would it be worth it to refactor? **
 # DONE change it statement... don't know what the subject is *
-# connect the app with ruby lobby api *
 
 # --------
 
@@ -87,6 +118,4 @@ end
 # write specs for next method rotate?
 # how important is it really?
 # could change spec to add more meaning
-# refactor to dependency injection
 # removing time_to_rotate
-# add timer feature
