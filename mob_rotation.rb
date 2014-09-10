@@ -6,8 +6,15 @@ class MobRotator
     @mob_file_name = mob_file_name
   end
   def show_mobsters()
-    @lines.each do |person|
-      puts "Mobster #{person}"
+    @lines.each_with_index do |person, index|
+      case index
+      when 0
+        puts "Driver #{person}"
+      when 1
+        puts "Navigator #{person}"
+      else
+        puts "Mobster #{person}"
+      end
     end
   end
   
