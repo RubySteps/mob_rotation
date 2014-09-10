@@ -30,14 +30,23 @@ class Output
   end
 end
 
+module FooFighter
+  def method_added(m)
+    raise "no foo for you" if m.to_s == "foo"
+  end
+end
+
 describe MobRotator do
+  extend FooFighter
+
   describe "#show_mobsters" do
-    let(:mob_rotator) { MobRotator.new(foo) }
-    let(:foo) { "test.txt" }
+
+    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:file_name) { "test.txt" }
     let(:output) { Output.new }
 
     before do
-      File.open(foo, "w") do |file|
+      File.open(file_name, "w") do |file|
         file << "Bob\n" << "Phoebe\n" << "Joe"
       end
 
@@ -60,38 +69,38 @@ describe MobRotator do
   end
 
   describe "#add_mobster" do
-    let(:mob_rotator) { MobRotator.new(foo) }
-    let(:foo) { "test.txt" }
+    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:file_name) { "test.txt" }
 
     it "adds a mobster to the file" do
 
       mob_rotator.add_mobster 'Jackie'
       mob_rotator.add_mobster 'Phil'
-      expect(File.read(foo)).to include('Jackie')
-      expect(File.read(foo)).to include('Phil')
+      expect(File.read(file_name)).to include('Jackie')
+      expect(File.read(file_name)).to include('Phil')
     end
   end
   
   describe "#remove_mobster" do
-    let(:mob_rotator) { MobRotator.new(foo) }
-    let(:foo) { "test_remove.txt" }
+    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:file_name) { "test_remove.txt" }
     
     before do
-      FileUtils.rm_f(foo)
-      File.open(foo, "w") do |file|
+      FileUtils.rm_f(file_name)
+      File.open(file_name, "w") do |file|
         file << "Bob\n" << "Phoebe\n" << "Joe"
       end
     end
 
     it "removes a mobster from the file" do
       mob_rotator.remove_mobster "Bob"
-      expect(File.read(foo)).not_to include('Bob')
+      expect(File.read(file_name)).not_to include('Bob')
 
     end
   end    
 end
 
-# adding remove mobster feature ----
+# DONE adding remove mobster feature ----
 # naming the acteptance---
 # add timer feature---
 # refactor to dependency injection --
