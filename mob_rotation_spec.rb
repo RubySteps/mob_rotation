@@ -97,14 +97,35 @@ describe MobRotator do
       expect(File.read(file_name)).not_to include('Bob')
 
     end
-  end    
+  end
+
+  describe "#rotate" do
+    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:file_name) { "test_remove.txt" }
+    
+    before do
+      FileUtils.rm_f(file_name)
+      File.open(file_name, "w") do |file|
+        file << "Bob\n" << "Phoebe\n" << "Joe\n"
+      end
+    end
+    
+    it "rotates mobsters" do
+      
+      mob_rotator.rotate
+      # new file to equal 'Phoebe Joe Bob'
+      expect(File.read(file_name)).to eq("Phoebe\nJoe\nBob\n")
+    end
+
+    it "works with no new line" 
+
+  end
 end
 
 describe Timer do
   describe "#timer" do
     it "Times a mob rotation" do
-      expect(Timer.timer(7)).to eq(7)
-      
+      expect(Timer.timer(7)).to eq(7)    
     end
   end
 end
