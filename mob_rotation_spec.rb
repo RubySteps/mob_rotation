@@ -100,6 +100,32 @@ describe MobRotator do
   end    
 end
 
+describe Timer do
+  describe "#timer" do
+    it "Times a mob rotation" do
+      expect(Timer.timer(7)).to eq(7)
+      
+    end
+  end
+end
+  
+
+# Time.now() == 7min ->timeisup!
+
+# naming acceptance ... again!~~~
+# No Readme file ~~~
+# End goal of the app ~~~
+# add a timer feature ~~~
+# is this going to stay a CLI, gem, rails app feature? Forward direction? ~~
+
+# introduce helper spec~
+# separate implementation from script~
+# organizing cli vs unit specs ~
+# Common structure for running tests
+# our 'clean state' isnt that clean. Lots of duplicate files from before
+
+
+
 # DONE adding remove mobster feature ----
 # naming the acteptance---
 # add timer feature---

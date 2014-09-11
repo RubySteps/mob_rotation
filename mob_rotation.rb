@@ -49,6 +49,12 @@ class MobRotator
   end
   
 end
+
+class Timer
+ def self.timer(arg)
+   arg
+ end
+end
 file_name = ARGV[0]
 command = ARGV[1]
 
