@@ -55,6 +55,7 @@ class Timer
    arg
  end
 end
+
 file_name = ARGV[0]
 command = ARGV[1]
 
