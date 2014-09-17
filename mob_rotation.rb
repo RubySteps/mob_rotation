@@ -27,6 +27,7 @@ class MobRotator
     File.open(@mob_file_name, 'a') do |file|
       file << mobster
     end
+    @lines << mobster 
   end
   
   def remove_mobster(mobster)
