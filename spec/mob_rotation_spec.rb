@@ -28,5 +28,10 @@ describe do
   it "adds mobsters to the mob list" do
     run_rotate 'add Joe'
     expect(output).to eq(["Driver Bob", "Navigator Phoebe", "Mobster Joe"])
+  end
+  
+  it "removes mobsters from the mob list" do
+    run_rotate 'remove Bob'
+    expect(output).to eq(["Driver Phoebe"])
   end 
 end

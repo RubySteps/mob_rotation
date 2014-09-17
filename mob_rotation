@@ -15,4 +15,5 @@ mob_rotator = MobRotator.new(file_name)
 # time_to_rotate if time > rotation_time
 mob_rotator.rotate if command == "rotate"
 mob_rotator.add_mobster(mobster_name) if command == "add"
+mob_rotator.remove_mobster(mobster_name) if command == "remove"
 mob_rotator.show_mobsters()
