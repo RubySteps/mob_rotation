@@ -1,10 +1,13 @@
 * [Ben Thompson](http://github.com/kotay)
 * [Harri Jauri](http://twitter.com/harrijauri)
 * [Jacqueline Homan](http://github.com/jacqueline-homan)
+* [Jen Diamond](http://jendiamond.com)
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
 * [Lucas Mendelowski](http://github.com/lowski)
+* [Luqi Pan](https://github.com/LuqiPan)
 * [Mike Bonifer](http://gamechangers.com)
 * [Pat Maddox](http://patmaddox.com)
 * [Rob Wilkinson](http://github.com/robawilkinson)
 * [Russell Baker](http://twitter.com/_russellb)
+* [Woody Zuill](http://zuill.us/WoodyZuill/)
