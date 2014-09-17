@@ -1,22 +1,27 @@
 require_relative '../mob_rotation'
 require "fileutils"
 
+
+
 describe do
-  it "prints out the rotation order" do
+  before do
     `echo 'Bob' > /tmp/rotation_test.txt`
     `echo 'Phoebe' >> /tmp/rotation_test.txt`
-    `ruby /home/rubysteps/mob_rotation/mob_rotation /tmp/rotation_test.txt > /tmp/results.txt`
-    output = File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?)
-    
+  end
+
+  def run_rotate(command = nil)
+    `ruby /home/rubysteps/mob_rotation/mob_rotation /tmp/rotation_test.txt #{command}  > /tmp/results.txt` 
+  end
+
+  let(:output) { File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?) }
+
+  it "prints out the rotation order" do
+    run_rotate
     expect(output).to eq(["Driver Bob","Navigator Phoebe"])
   end
 
   it "changes the order of rotation" do
-    `echo 'Bob' > /tmp/rotation_test.txt`
-    `echo 'Phoebe' >> /tmp/rotation_test.txt`
-    `ruby /home/rubysteps/mob_rotation/mob_rotation /tmp/rotation_test.txt rotate > /tmp/results.txt`
-    output = File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?)
-    
+    run_rotate 'rotate'
     expect(output).to eq(["Driver Phoebe","Navigator Bob"])
   end
 end
