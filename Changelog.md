@@ -1,2 +1,3 @@
 - Show the Driver and Navigator
-- Add a Mobster
+- Add a mobster
+- Create CLI program 
