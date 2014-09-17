@@ -55,16 +55,3 @@ class Timer
    arg
  end
 end
-
-file_name = ARGV[0]
-command = ARGV[1]
-
-# start_time 
-#time = Time.now
-#last_rotation = File.mtime(file_name)
-#rotation_time = last_rotation + 120
-
-mob_rotator = MobRotator.new(file_name)
-# time_to_rotate if time > rotation_time
-mob_rotator.rotate if command == "rotate"
-mob_rotator.show_mobsters()
