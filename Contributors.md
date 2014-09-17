@@ -1,4 +1,6 @@
+* [Ben Thompson](http://github.com/kotay)
 * [Harri Jauri](http://twitter.com/harrijauri)
+* [Jacqueline Homan](http://github.com/jacqueline-homan)
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
 * [Lucas Mendelowski](http://github.com/lowski)
