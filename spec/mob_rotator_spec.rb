@@ -11,7 +11,7 @@ describe MobRotator do
 
     before do
       File.open(file_name, "w") do |file|
-        file << "Bob\n" << "Phoebe\n" << "Joe"
+        file << "Bob\n" << "Phoebe\n" << "Joe\n"
       end
 
       $stdout = output
@@ -37,15 +37,17 @@ describe MobRotator do
     let(:file_name) { "test.txt" }
 
     it "adds a mobster to the file" do
-
       mob_rotator.add_mobster 'Jackie'
       mob_rotator.add_mobster 'Phil'
-      expect(File.read(file_name)).to include('Jackie')
-      expect(File.read(file_name)).to include('Phil')
+
+      expect(File.read(file_name)).to eq("Bob\nPhoebe\nJoe\nJackie\nPhil\n")
     end
+
     it "adds a mobster with no db file" do
       FileUtils.rm(file_name)
+
       mob_rotator.add_mobster 'Jackie'
+
       expect(File.read(file_name)).to include('Jackie')
      end
   end
@@ -56,6 +58,7 @@ describe MobRotator do
     
     before do
       FileUtils.rm_f(file_name)
+
       File.open(file_name, "w") do |file|
         file << "Bob\n" << "Phoebe\n" << "Joe"
       end
@@ -86,7 +89,7 @@ describe MobRotator do
       expect(File.read(file_name)).to eq("Phoebe\nJoe\nBob\n")
     end
 
-    it "works with no new line" 
+  
 
   end
 end
