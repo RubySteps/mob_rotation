@@ -1,3 +1,11 @@
+
+
+Add/remove multiple mobsters in one call**
+Timer ****
+Detect mobsters
+Tmux integration: powerline *
+
+
 # Time.now() == 7min ->timeisup!
 
 # naming acceptance ... again!~~~
