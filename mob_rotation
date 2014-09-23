@@ -4,7 +4,7 @@ require_relative 'mob_rotation'
 
 file_name = ARGV[0]
 command = ARGV[1]
-mobster_name = ARGV[2]
+mobster_names = ARGV[2..-1]
 
 # start_time 
 #time = Time.now
@@ -14,6 +14,6 @@ mobster_name = ARGV[2]
 mob_rotator = MobRotator.new(file_name)
 # time_to_rotate if time > rotation_time
 mob_rotator.rotate if command == "rotate"
-mob_rotator.add_mobster(mobster_name) if command == "add"
-mob_rotator.remove_mobster(mobster_name) if command == "remove"
+mob_rotator.add_mobster(*mobster_names) if command == "add"
+mob_rotator.remove_mobster(*mobster_names) if command == "remove"
 mob_rotator.show_mobsters()

@@ -25,7 +25,6 @@ class MobRotator
   end
 
   def add_mobster(*mobsters)
-    
     File.open(@mob_file_name, 'a') do |file|
       mobsters.each do |mobster|
         file << mobster+"\n"
