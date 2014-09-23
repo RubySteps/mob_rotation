@@ -35,14 +35,11 @@ class MobRotator
     end
   end
 
-  def remove_mobster(mobster)
-    File.open(@mob_file_name, 'w') do |file|
-      @mobsters.each_with_index do |l, i|
-        file << l unless valid_mobster(l, mobster)
-        @mobsters[i] = nil if valid_mobster(l, mobster)
-      end
+  def remove_mobster(given_mobster)
+    @mobsters.each_with_index do |mobster, i|
+      @mobsters.delete(mobster) if found_mobster(mobster, given_mobster) 
     end
-    @mobsters.compact!
+    sync!
   end
   
   def remove_mobsters(*mobsters)
@@ -53,10 +50,7 @@ class MobRotator
 
   def rotate
     @mobsters << @mobsters.shift
-    
-    File.open(@mob_file_name, 'w') do |file|
-      @mobsters.each {|l| file << l }
-    end
+    sync!
   end
 
   
@@ -66,7 +60,14 @@ class MobRotator
   
   private
   
-  def valid_mobster(line, mobster)
+  def sync!
+    File.open(@mob_file_name, 'w') do |file|
+      @mobsters.each { |m| file << m}
+    end
+  end
+
+  
+  def found_mobster(line, mobster)
     line && line.strip == mobster
   end
 end
