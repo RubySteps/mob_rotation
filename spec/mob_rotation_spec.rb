@@ -34,7 +34,12 @@ describe do
     run_rotate 'add Phil Steve'
     expect(output).to include(*["Mobster Phil", "Mobster Steve"])
   end
-
+  
+  it "removes multiple mobstars at once" do
+    run_rotate 'add Phil'
+    run_rotate 'remove Bob Phoebe'
+    expect(output).to eq(["Driver Phil"])
+  end
   
   it "removes mobsters from the mob list" do
     run_rotate 'remove Bob'

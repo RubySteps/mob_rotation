@@ -35,11 +35,13 @@ class MobRotator
     end
   end
  
-  def remove_mobster(mobster)
+  def remove_mobster(*mobsters)
     File.open(@mob_file_name, 'w') do |file|
-      @lines.each_with_index do |l, i| 
-        file << l unless l.strip == mobster
-       @lines[i] = nil if l.strip == mobster
+      mobsters.each do |mobster|
+        @lines.each_with_index do |l, i| 
+          file << l unless l && l.strip == mobster
+          @lines[i] = nil if l &&  l.strip == mobster
+        end
       end
     end
     @lines.compact!
