@@ -24,12 +24,16 @@ class MobRotator
     end
   end
 
-  def add_mobster(mobster)
+  def add_mobster(*mobsters)
     
     File.open(@mob_file_name, 'a') do |file|
-      file << mobster+"\n"
+      mobsters.each do |mobster|
+        file << mobster+"\n"
+      end
     end
-    @lines << mobster 
+    mobsters.each do |mobster|
+      @lines << mobster
+    end
   end
  
   def remove_mobster(mobster)

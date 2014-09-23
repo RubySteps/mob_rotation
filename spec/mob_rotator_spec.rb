@@ -50,6 +50,12 @@ describe MobRotator do
 
       expect(File.read(file_name)).to include('Jackie')
      end
+
+    it "accepts more than one mobster" do
+      
+      mob_rotator.add_mobster "Jackie", "Phil"
+      expect(File.read(file_name)).to include("\nPhil")
+    end
   end
   
   describe "#remove_mobster" do
