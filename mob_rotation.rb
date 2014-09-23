@@ -3,7 +3,7 @@ require 'time'
 class MobRotator
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
-    @lines = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
+    @mobsters = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
     @mob_file_name = mob_file_name
   end
 
@@ -12,7 +12,7 @@ class MobRotator
   end
 
   def show_mobsters()
-    @lines.each_with_index do |person, index|
+    @mobsters.each_with_index do |person, index|
       case index
       when 0
         write "Driver #{person}"
@@ -31,27 +31,31 @@ class MobRotator
       end
     end
     mobsters.each do |mobster|
-      @lines << mobster
+      @mobsters << mobster
     end
   end
- 
-  def remove_mobster(*mobsters)
+
+  def remove_mobster(mobster)
     File.open(@mob_file_name, 'w') do |file|
-      mobsters.each do |mobster|
-        @lines.each_with_index do |l, i| 
-          file << l unless l && l.strip == mobster
-          @lines[i] = nil if l &&  l.strip == mobster
-        end
+      @mobsters.each_with_index do |l, i|
+        file << l unless valid_mobster(l, mobster)
+        @mobsters[i] = nil if valid_mobster(l, mobster)
       end
     end
-    @lines.compact!
+    @mobsters.compact!
+  end
+  
+  def remove_mobsters(*mobsters)
+    mobsters.each do |mobster|
+      remove_mobster(mobster)
+    end
   end
 
   def rotate
-    @lines << @lines.shift
+    @mobsters << @mobsters.shift
     
     File.open(@mob_file_name, 'w') do |file|
-      @lines.each {|l| file << l }
+      @mobsters.each {|l| file << l }
     end
   end
 
@@ -60,6 +64,11 @@ class MobRotator
     puts "Time to rotate!"
   end
   
+  private
+  
+  def valid_mobster(line, mobster)
+    line && line.strip == mobster
+  end
 end
 
 class Timer
