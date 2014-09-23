@@ -43,6 +43,11 @@ describe MobRotator do
       expect(File.read(file_name)).to include('Jackie')
       expect(File.read(file_name)).to include('Phil')
     end
+    it "adds a mobster with no db file" do
+      FileUtils.rm(file_name)
+      mob_rotator.add_mobster 'Jackie'
+      expect(File.read(file_name)).to include('Jackie')
+     end
   end
   
   describe "#remove_mobster" do

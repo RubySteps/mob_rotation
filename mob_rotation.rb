@@ -2,6 +2,7 @@ require 'time'
 
 class MobRotator
   def initialize(mob_file_name)
+    FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
     @lines = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
     @mob_file_name = mob_file_name
   end
@@ -24,7 +25,8 @@ class MobRotator
   end
 
   def add_mobster(mobster)
-    File.open(@mob_file_name, 'a') do |file|
+    
+    File.open(@mob_file_name, 'a+') do |file|
       file << mobster
     end
     @lines << mobster 
