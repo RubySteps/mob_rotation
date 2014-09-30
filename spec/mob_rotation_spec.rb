@@ -15,7 +15,7 @@ describe do
 
   let(:output) { File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?) }
 
-  it "prints out the rotation order" do
+  it "prints out the rotation order when no command given" do
     run_rotate
     expect(output).to eq(["Driver Bob","Navigator Phoebe"])
   end
@@ -23,6 +23,18 @@ describe do
   it "prints out help" do
     run_rotate 'help'
     expected = ['Available commands are:',
+    '<database txt file> help',
+    '<database txt file> rotate', 
+    '<database txt file> add <name1> [name2]',
+    '<database txt file> remove <name1> [name2]']
+
+    expect(output).to eq(expected)
+  end
+
+  it "prints out help on an unknown command" do
+    run_rotate 'chicken'
+    expected = ['Unknown command chicken', 
+    'Available commands are:',
     '<database txt file> help',
     '<database txt file> rotate', 
     '<database txt file> add <name1> [name2]',

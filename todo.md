@@ -1,4 +1,11 @@
 
+TODO
+- Unrecognized commands show help ***
+- Timer! *
+
+Fails: ruby mob_rotation asdf cows
+
+____
 
 Add/remove multiple mobsters in one call**
 Timer ****
