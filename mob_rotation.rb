@@ -48,6 +48,10 @@ class MobRotator
     end
   end
 
+  def show_help()
+    puts ["rotate","add","remove"]
+  end
+
   def rotate
     @mobsters << @mobsters.shift
     sync!

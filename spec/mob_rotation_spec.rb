@@ -20,6 +20,11 @@ describe do
     expect(output).to eq(["Driver Bob","Navigator Phoebe"])
   end
 
+  it "prints out help" do
+    run_rotate 'help'
+    expect(output).to eq(["rotate","add","remove","Driver Bob","Navigator Phoebe"])
+  end
+
   it "changes the order of rotation" do
     run_rotate 'rotate'
     expect(output).to eq(["Driver Phoebe","Navigator Bob"])
@@ -35,7 +40,7 @@ describe do
     expect(output).to include(*["Mobster Phil", "Mobster Steve"])
   end
   
-  it "removes multiple mobstars at once" do
+  it "removes multiple mobsters at once" do
     run_rotate 'add Phil'
     run_rotate 'remove Bob Phoebe'
     expect(output).to eq(["Driver Phil"])

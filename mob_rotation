@@ -16,4 +16,5 @@ mob_rotator = MobRotator.new(file_name)
 mob_rotator.rotate if command == "rotate"
 mob_rotator.add_mobster(*mobster_names) if command == "add"
 mob_rotator.remove_mobsters(*mobster_names) if command == "remove"
+mob_rotator.show_help if command == "help"
 mob_rotator.show_mobsters()
