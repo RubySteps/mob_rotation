@@ -1,3 +1,6 @@
+* [Alistair Cockburn](http://alistair.cockburn.us)
+* [Amitai Schlair](https://twitter.com/schmonz)
+* [Andrew Broman](http://github/afbroman)
 * [Ben Thompson](http://github.com/kotay)
 * [Harri Jauri](http://twitter.com/harrijauri)
 * [Jacqueline Homan](http://github.com/jacqueline-homan)
