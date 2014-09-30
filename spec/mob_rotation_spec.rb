@@ -26,9 +26,7 @@ describe do
     '<database txt file> help',
     '<database txt file> rotate', 
     '<database txt file> add <name1> [name2]',
-    '<database txt file> remove <name1> [name2]',
-    'Driver Bob',
-    'Navigator Phoebe']
+    '<database txt file> remove <name1> [name2]']
 
     expect(output).to eq(expected)
   end
