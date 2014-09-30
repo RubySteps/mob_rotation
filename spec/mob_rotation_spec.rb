@@ -22,7 +22,15 @@ describe do
 
   it "prints out help" do
     run_rotate 'help'
-    expect(output).to eq(["rotate","add","remove","Driver Bob","Navigator Phoebe"])
+    expected = ['Available commands are:',
+    '<database txt file> help',
+    '<database txt file> rotate', 
+    '<database txt file> add <name1> [name2]',
+    '<database txt file> remove <name1> [name2]',
+    'Driver Bob',
+    'Navigator Phoebe']
+
+    expect(output).to eq(expected)
   end
 
   it "changes the order of rotation" do

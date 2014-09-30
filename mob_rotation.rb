@@ -49,7 +49,11 @@ class MobRotator
   end
 
   def show_help()
-    puts ["rotate","add","remove"]
+    puts ['Available commands are:',
+    '<database txt file> help',
+    '<database txt file> rotate', 
+    '<database txt file> add <name1> [name2]',
+    '<database txt file> remove <name1> [name2]']
   end
 
   def rotate
