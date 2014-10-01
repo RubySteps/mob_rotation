@@ -28,6 +28,8 @@ when "remove"
   mob_rotator.show_mobsters
 when "help"
   mob_rotator.show_help
+when "run_with_timer"
+  mob_rotator.run_timer(ARGV[2].to_i)
 else
   mob_rotator.inform_lovely_user(command)
 end

@@ -56,6 +56,11 @@ class MobRotator
     '<database txt file> remove <name1> [name2]']
   end
 
+  def run_timer(seconds)
+    sleep(seconds)
+    puts "Time to rotate"
+  end
+
   def inform_lovely_user(command)
     puts "Unknown command #{command}"
     show_help

@@ -68,4 +68,19 @@ describe do
     run_rotate 'remove Bob'
     expect(output).to eq(["Driver Phoebe"])
   end 
+
+  it "it runs for a specific amount of time" do
+    ts = Time.now
+    run_rotate 'run_with_timer 3'
+    tf = Time.now
+    expect(tf - ts).to be_within(1).of(3.0)
+    expect(output).to eq(["Time to rotate"])
+  end
+
+  it "waits until time runs out before stating 'Time to Rotate'" do
+    expect {
+      Timeout::timeout(1) { run_rotate 'run_with_timer 5' }
+    }.to raise_error(Timeout::Error)
+    expect(output).to eq([])
+  end
 end
