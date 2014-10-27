@@ -1,6 +1,23 @@
+Break functions out of mob_rotation.rb (God class)
+clean up directory structure...**
+do all the tests pass???****
+understand what it actually does...?
+play firecrackers whenever we rotate ***
+prevent non-driver from interacting w/ terminal
+get more information / permissions about participants (class-based?)
+include the project history in README
+create a README********
+abandon this and move on to something
+start a new project
+build a browser-based gui
+randomize driver / navigator (with limits) **
+record a history of rotation
+designated driver
+
+
 
 TODO
-- Unrecognized commands show help ***
+- Unrecognized commands show help DONE
 - Timer! *
 
 Fails: ruby mob_rotation asdf cows

@@ -1,3 +1,4 @@
+* [Abhishek Bose](http://abhishekbose.com)
 * [Alistair Cockburn](http://alistair.cockburn.us)
 * [Amitai Schlair](https://twitter.com/schmonz)
 * [Andrew Broman](http://github/afbroman)
@@ -8,9 +9,12 @@
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
 * [Lucas Mendelowski](http://github.com/lowski)
+* [Luke DeWitt](http://github.com/ledewitt)
 * [Luqi Pan](https://github.com/LuqiPan)
+* [Mark](https://github.com/Digital-Learner)
 * [Mike Bonifer](http://gamechangers.com)
 * [Pat Maddox](http://patmaddox.com)
+* [Paul Yeoh](http://github.com/paul-ylz)
 * [Rob Wilkinson](http://github.com/robawilkinson)
 * [Russell Baker](http://twitter.com/_russellb)
 * [Woody Zuill](http://zuill.us/WoodyZuill/)
