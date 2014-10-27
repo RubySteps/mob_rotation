@@ -1,3 +1,15 @@
+delete Timer *** DONE
+each_with_index ? in remove_mobster ... *
+refactor add_mobster to use sync!*
+Tmux integration: powerline 
+refactor to mob commands vs timer class (and stuff like that :) **
+too much going on in mob_rotation executable? *
+add run_with_timer to help...
+auto-generate help based on known commands ***
+known default database file, overridable *
+
+
+
 Break functions out of mob_rotation.rb (God class)
 clean up directory structure...**
 do all the tests pass???****

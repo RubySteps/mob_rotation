@@ -90,8 +90,3 @@ class MobRotator
   end
 end
 
-class Timer
- def self.timer(arg)
-   arg
- end
-end

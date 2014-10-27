@@ -100,10 +100,3 @@ describe MobRotator do
   end
 end
 
-describe Timer do
-  describe "#timer" do
-    it "Times a mob rotation" do
-      expect(Timer.timer(7)).to eq(7)    
-    end
-  end
-end
