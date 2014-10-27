@@ -1,7 +1,7 @@
 delete Timer *** DONE
 each_with_index ? in remove_mobster ... * DONE
 known default database file, overridable * WIP
-refactor add_mobster to use sync!*
+refactor add_mobster to use sync!* DONE
 Tmux integration: powerline 
 refactor to mob commands vs timer class (and stuff like that :) **
 too much going on in mob_rotation executable? *

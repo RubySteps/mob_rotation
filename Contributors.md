@@ -9,6 +9,7 @@
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
 * [Lucas Mendelowski](http://github.com/lowski)
+* [Luisa Lima](http://github.com/luisalima)
 * [Luke DeWitt](http://github.com/ledewitt)
 * [Luqi Pan](https://github.com/LuqiPan)
 * [Mark](https://github.com/Digital-Learner)

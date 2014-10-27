@@ -3,7 +3,7 @@ require 'time'
 class MobRotator
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
-    @mobsters = File.readlines(mob_file_name).reject {|l| l.strip.empty? }
+    @mobsters = File.readlines(mob_file_name).map(&:strip).reject(&:empty?)
     @mob_file_name = mob_file_name
   end
 
@@ -25,14 +25,11 @@ class MobRotator
   end
 
   def add_mobster(*mobsters)
-    File.open(@mob_file_name, 'a') do |file|
-      mobsters.each do |mobster|
-        file << mobster+"\n"
-      end
-    end
     mobsters.each do |mobster|
       @mobsters << mobster
     end
+
+    sync!
   end
 
   def remove_mobster(given_mobster)
@@ -80,7 +77,7 @@ class MobRotator
   
   def sync!
     File.open(@mob_file_name, 'w') do |file|
-      @mobsters.each { |m| file << m}
+      @mobsters.each { |m| file << m << "\n" }
     end
   end
 
