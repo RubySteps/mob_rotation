@@ -2,7 +2,7 @@
 require_relative 'mob_rotation'
 
 
-file_name = ARGV[0]
+file_name = ARGV[0] || 'rotate.txt'
 command = ARGV[1]
 mobster_names = ARGV[2..-1]
 

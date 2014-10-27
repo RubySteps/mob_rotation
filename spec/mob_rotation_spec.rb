@@ -15,6 +15,18 @@ describe do
 
   let(:output) { File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?) }
 
+  it "allows the database file to be specified"
+
+  it "defaults to 'rotate.txt' when no database file is specified" do
+    if backup = File.exists?('./rotate.txt')
+      FileUtils.mv('./rotate.txt', './rotate.txt.backup')
+    end
+    FileUtils.cp('/tmp/rotation_test.txt', './rotate.txt')
+    `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt` 
+    expect(output).to eq(["Driver Bob","Navigator Phoebe"])
+    FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup
+  end
+
   it "prints out the rotation order when no command given" do
     run_rotate
     expect(output).to eq(["Driver Bob","Navigator Phoebe"])
