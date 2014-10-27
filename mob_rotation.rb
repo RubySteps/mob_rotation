@@ -36,7 +36,7 @@ class MobRotator
   end
 
   def remove_mobster(given_mobster)
-    @mobsters.each_with_index do |mobster, i|
+    @mobsters.each do |mobster|
       @mobsters.delete(mobster) if found_mobster(mobster, given_mobster) 
     end
     sync!
