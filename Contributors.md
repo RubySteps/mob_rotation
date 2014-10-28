@@ -18,4 +18,5 @@
 * [Paul Yeoh](http://github.com/paul-ylz)
 * [Rob Wilkinson](http://github.com/robawilkinson)
 * [Russell Baker](http://twitter.com/_russellb)
+* [Willem Larsen](http://github.com/willemlarsen)
 * [Woody Zuill](http://zuill.us/WoodyZuill/)
