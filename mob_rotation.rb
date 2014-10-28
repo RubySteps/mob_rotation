@@ -3,7 +3,9 @@ require 'time'
 class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
-    @mobsters = File.readlines(mob_file_name).map(&:strip).reject(&:empty?)
+    @mobsters = File.readlines(mob_file_name).map do |entry|
+      entry.split('').take_while { |c| c != '<' }.join('')
+    end.map(&:strip).reject(&:empty?)
     @mob_file_name = mob_file_name
   end
 

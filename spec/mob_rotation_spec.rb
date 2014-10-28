@@ -11,7 +11,7 @@ describe do
   end
 
   def add_name_to_temp_db(name)
-    `echo #{name} >> #{temp_rotation_db}`
+    `echo "#{name}" >> #{temp_rotation_db}`
   end    
 
   before do
@@ -73,6 +73,25 @@ describe do
   it "changes the order of rotation" do
     run_rotate 'rotate'
     expect(output).to eq(["Driver Phoebe","Navigator Bob"])
+  end
+
+  it "hides the email address from rotation output" do
+    remove_temp_rotation_db
+    add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
+
+    run_rotate 'rotate'
+
+    expect(output).to eq(["Driver Phoebe Example"])
+  end
+
+  it "blah blah" do
+    pending
+
+    git_username = `git config user.name`
+    git_email = `git config user.email`
+
+    expect(git_username).to eq('Phoebe Example')
+    expect(git_email).to eq('phoebe@example.com')
   end
   
   it "adds mobsters to the mob list" do
