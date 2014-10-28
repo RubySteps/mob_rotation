@@ -4,7 +4,7 @@ class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
     @mobsters = File.readlines(mob_file_name).map do |entry|
-      entry.split('').take_while { |c| c != '<' }.join('')
+      extract_name_from(entry)
     end.map(&:strip).reject(&:empty?)
     @mob_file_name = mob_file_name
   end
@@ -82,10 +82,14 @@ class MobRotation
       @mobsters.each { |m| file << m << "\n" }
     end
   end
-
   
   def found_mobster(line, mobster)
     line && line.strip == mobster
+  end
+
+  def extract_name_from(entry)
+    entry_to_array = entry.split('')
+    entry_to_array.take_while { |c| c != '<' }.join('')
   end
 end
 
