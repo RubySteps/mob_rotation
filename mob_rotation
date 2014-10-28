@@ -1,30 +1,31 @@
 #!/usr/bin/env ruby
 require_relative 'mob_rotation'
 
-
 file_name = ARGV[0] || 'rotate.txt'
 command = ARGV[1]
 mobster_names = ARGV[2..-1]
 
-mob_rotator = MobRotation.new(file_name)
-
-case command
-when nil
-  mob_rotator.show_mobsters
-when "rotate"
-  mob_rotator.rotate
-  mob_rotator.show_mobsters
-when "add"
-  mob_rotator.add_mobster(*mobster_names)
-  mob_rotator.show_mobsters
-when "remove"
-  mob_rotator.remove_mobsters(*mobster_names)
-  mob_rotator.show_mobsters
-when "help"
-  mob_rotator.show_help
-when "run_with_timer"
-  mob_rotator.run_timer(ARGV[2].to_i)
-else
-  mob_rotator.inform_lovely_user(command)
+def command_router(command, mobster_names, file_name)
+  mob_rotator = MobRotation.new(file_name)
+  case command
+  when nil
+    mob_rotator.show_mobsters
+  when "rotate"
+    mob_rotator.rotate
+    mob_rotator.show_mobsters
+  when "add"
+    mob_rotator.add_mobster(*mobster_names)
+    mob_rotator.show_mobsters
+  when "remove"
+    mob_rotator.remove_mobsters(*mobster_names)
+    mob_rotator.show_mobsters
+  when "help"
+    mob_rotator.show_help
+  when "run_with_timer"
+    mob_rotator.run_timer(ARGV[2].to_i)
+  else
+    mob_rotator.inform_lovely_user(command)
+  end
 end
 
+command_router(command, mobster_names, file_name)
