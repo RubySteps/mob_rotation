@@ -1,3 +1,12 @@
+help w/o specifying database
+make main class match file name ****
+lots of commented out code in mob_rotation executable *** Done
+refactor case statement***
+include role information in database file
+#add_mobster takes multiple mobsters
+explicit path in acceptance tests only works on the mob station
+auto-generate help based on known commands *
+
 delete Timer *** DONE
 each_with_index ? in remove_mobster ... * DONE
 known default database file, overridable * WIP
@@ -5,8 +14,7 @@ refactor add_mobster to use sync!* DONE
 Tmux integration: powerline 
 refactor to mob commands vs timer class (and stuff like that :) **
 too much going on in mob_rotation executable? *
-add run_with_timer to help...
-auto-generate help based on known commands ***
+add run_with_timer to help.
 
 
 
