@@ -3,8 +3,10 @@
 * [Amitai Schlair](https://twitter.com/schmonz)
 * [Andrew Broman](http://github/afbroman)
 * [Ben Thompson](http://github.com/kotay)
+* [Dan Wagner](http://github.com/danwagnerco)
 * [Harri Jauri](http://twitter.com/harrijauri)
 * [Jacqueline Homan](http://github.com/jacqueline-homan)
+* [Jared Smith](http://sublimecoding.com)
 * [Jen Diamond](http://jendiamond.com)
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
