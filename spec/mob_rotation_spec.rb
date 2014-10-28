@@ -15,10 +15,22 @@ describe do
   end    
 
   before do
+    @git_username = `git config user.name`.strip
+    @git_email = `git config user.email`.strip
+  end
+
+  before do
     remove_temp_rotation_db
 
     add_name_to_temp_db 'Bob'
     add_name_to_temp_db 'Phoebe'
+  end
+
+  after do
+    unless @git_username.empty? or @git_email.empty?
+      `git config user.name '#{@git_username}'`
+      `git config user.email '#{@git_email}'`
+    end
   end
 
   def run_rotate(command = nil)
@@ -75,29 +87,42 @@ describe do
     expect(output).to include("Driver Phoebe","Navigator Bob")
   end
 
-  it "hides the email address from rotation output" do
-    remove_temp_rotation_db
-    add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
+  describe "git stuff" do
 
-    run_rotate 'rotate'
+    it "hides the email address from rotation output" do
+      remove_temp_rotation_db
+      add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
 
-    expect(output).to include("Driver Phoebe Example")
-  end
+      run_rotate 'rotate'
 
-  it "outputs the new git username when running rotate" do
-    remove_temp_rotation_db
-    add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      expect(output).to include("Driver Phoebe Example")
+    end
 
-    run_rotate 'rotate'
+    it "outputs the new git username when running rotate" do
+      remove_temp_rotation_db
+      add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
 
-    expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
-#    pending
+      run_rotate 'rotate'
 
-#    git_username = `git config user.name`
-#    git_email = `git config user.email`
+      expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
+      #    pending
 
-#    expect(git_username).to eq('Phoebe Example')
-#    expect(git_email).to eq('phoebe@example.com')
+      #    git_username = `git config user.name`
+      #    git_email = `git config user.email`
+
+      #    expect(git_username).to eq('Phoebe Example')
+      #    expect(git_email).to eq('phoebe@example.com')
+    end
+
+    it "updates the git user.name config when running rotate", wip: true do
+      remove_temp_rotation_db
+      add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
+
+      run_rotate 'rotate'
+
+      git_username = `git config user.name`.strip
+      expect(git_username).to eq('Phoebe Example')
+    end
   end
   
   it "adds mobsters to the mob list" do

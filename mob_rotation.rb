@@ -68,6 +68,7 @@ class MobRotation
 
   def rotate
     @mobsters << @mobsters.shift
+    system "git config user.name '#{@mobsters.first.strip}'" rescue nil
     sync!
   end
 
