@@ -4,13 +4,25 @@ require "fileutils"
 
 
 describe do
+  let(:temp_rotation_db) { '/tmp/rotation_test.txt' }
+
+  def remove_temp_rotation_db
+    FileUtils.rm temp_rotation_db
+  end
+
+  def add_name_to_temp_db(name)
+    `echo #{name} >> #{temp_rotation_db}`
+  end    
+
   before do
-    `echo 'Bob' > /tmp/rotation_test.txt`
-    `echo 'Phoebe' >> /tmp/rotation_test.txt`
+    remove_temp_rotation_db
+
+    add_name_to_temp_db 'Bob'
+    add_name_to_temp_db 'Phoebe'
   end
 
   def run_rotate(command = nil)
-    `ruby /home/rubysteps/mob_rotation/mob_rotation /tmp/rotation_test.txt #{command}  > /tmp/results.txt` 
+    `ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command}  > /tmp/results.txt` 
   end
 
   let(:output) { File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?) }
@@ -21,7 +33,7 @@ describe do
     if backup = File.exists?('./rotate.txt')
       FileUtils.mv('./rotate.txt', './rotate.txt.backup')
     end
-    FileUtils.cp('/tmp/rotation_test.txt', './rotate.txt')
+    FileUtils.cp(temp_rotation_db, './rotate.txt')
     `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt` 
     begin
       expect(output).to eq(["Driver Bob","Navigator Phoebe"])
