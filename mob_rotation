@@ -6,7 +6,7 @@ file_name = ARGV[0] || 'rotate.txt'
 command = ARGV[1]
 mobster_names = ARGV[2..-1]
 
-mob_rotator = MobRotator.new(file_name)
+mob_rotator = MobRotation.new(file_name)
 
 case command
 when nil

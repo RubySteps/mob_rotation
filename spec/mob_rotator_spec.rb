@@ -1,11 +1,11 @@
 require_relative 'spec_helper'
 
-describe MobRotator do
+describe MobRotation do
   extend FooFighter
 
   describe "#show_mobsters" do
 
-    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test.txt" }
     let(:output) { Output.new }
 
@@ -33,7 +33,7 @@ describe MobRotator do
   end
 
   describe "#add_mobster" do
-    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test.txt" }
 
     it "adds a mobster to the file" do
@@ -59,7 +59,7 @@ describe MobRotator do
   end
   
   describe "#remove_mobster" do
-    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test_remove.txt" }
     
     before do
@@ -78,7 +78,7 @@ describe MobRotator do
   end
 
   describe "#rotate" do
-    let(:mob_rotator) { MobRotator.new(file_name) }
+    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test_remove.txt" }
     
     before do

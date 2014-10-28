@@ -1,6 +1,6 @@
 require 'time'
 
-class MobRotator
+class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
     @mobsters = File.readlines(mob_file_name).map(&:strip).reject(&:empty?)
