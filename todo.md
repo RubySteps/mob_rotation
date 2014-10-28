@@ -1,11 +1,12 @@
 help w/o specifying database
-make main class match file name ****
+make main class match file name **** Done
 lots of commented out code in mob_rotation executable *** Done
 refactor case statement***
 include role information in database file
 #add_mobster takes multiple mobsters
 explicit path in acceptance tests only works on the mob station
 auto-generate help based on known commands *
+broken tests break production rotate.txt file - DONE
 
 delete Timer *** DONE
 each_with_index ? in remove_mobster ... * DONE

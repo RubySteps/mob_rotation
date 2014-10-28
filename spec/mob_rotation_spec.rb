@@ -23,8 +23,11 @@ describe do
     end
     FileUtils.cp('/tmp/rotation_test.txt', './rotate.txt')
     `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt` 
-    expect(output).to eq(["Driver Bob","Navigator Phoebe"])
-    FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup
+    begin
+      expect(output).to eq(["Driver Bob","Navigator Phoebe"])
+    ensure
+      FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup    
+    end
   end
 
   it "prints out the rotation order when no command given" do
