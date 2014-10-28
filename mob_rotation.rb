@@ -17,6 +17,7 @@ class MobRotation
     @mobsters.each_with_index do |person, index|
       case index
       when 0
+        write "git username: #{person}"
         write "Driver #{person}"
       when 1
         write "Navigator #{person}"

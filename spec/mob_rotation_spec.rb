@@ -36,7 +36,7 @@ describe do
     FileUtils.cp(temp_rotation_db, './rotate.txt')
     `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt` 
     begin
-      expect(output).to eq(["Driver Bob","Navigator Phoebe"])
+      expect(output).to include("Driver Bob","Navigator Phoebe")
     ensure
       FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup    
     end
@@ -44,7 +44,7 @@ describe do
 
   it "prints out the rotation order when no command given" do
     run_rotate
-    expect(output).to eq(["Driver Bob","Navigator Phoebe"])
+    expect(output).to include("Driver Bob","Navigator Phoebe")
   end
 
   it "prints out help" do
@@ -72,7 +72,7 @@ describe do
 
   it "changes the order of rotation" do
     run_rotate 'rotate'
-    expect(output).to eq(["Driver Phoebe","Navigator Bob"])
+    expect(output).to include("Driver Phoebe","Navigator Bob")
   end
 
   it "hides the email address from rotation output" do
@@ -81,38 +81,44 @@ describe do
 
     run_rotate 'rotate'
 
-    expect(output).to eq(["Driver Phoebe Example"])
+    expect(output).to include("Driver Phoebe Example")
   end
 
-  it "blah blah" do
-    pending
+  it "outputs the new git username when running rotate" do
+    remove_temp_rotation_db
+    add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
 
-    git_username = `git config user.name`
-    git_email = `git config user.email`
+    run_rotate 'rotate'
 
-    expect(git_username).to eq('Phoebe Example')
-    expect(git_email).to eq('phoebe@example.com')
+    expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
+#    pending
+
+#    git_username = `git config user.name`
+#    git_email = `git config user.email`
+
+#    expect(git_username).to eq('Phoebe Example')
+#    expect(git_email).to eq('phoebe@example.com')
   end
   
   it "adds mobsters to the mob list" do
     run_rotate 'add Joe'
-    expect(output).to eq(["Driver Bob", "Navigator Phoebe", "Mobster Joe"])
+    expect(output).to include("Driver Bob", "Navigator Phoebe", "Mobster Joe")
   end
 
   it "adds multiple mobsters at once" do
     run_rotate 'add Phil Steve'
-    expect(output).to include(*["Mobster Phil", "Mobster Steve"])
+    expect(output).to include("Mobster Phil", "Mobster Steve")
   end
   
   it "removes multiple mobsters at once" do
     run_rotate 'add Phil'
     run_rotate 'remove Bob Phoebe'
-    expect(output).to eq(["Driver Phil"])
+    expect(output).to include("Driver Phil")
   end
   
   it "removes mobsters from the mob list" do
     run_rotate 'remove Bob'
-    expect(output).to eq(["Driver Phoebe"])
+    expect(output).to include("Driver Phoebe")
   end 
 
   it "it runs for a specific amount of time" do
@@ -120,7 +126,7 @@ describe do
     run_rotate 'run_with_timer 3'
     tf = Time.now
     expect(tf - ts).to be_within(1).of(3.0)
-    expect(output).to eq(["Time to rotate"])
+    expect(output).to include("Time to rotate")
   end
 
   it "waits until time runs out before stating 'Time to Rotate'" do
