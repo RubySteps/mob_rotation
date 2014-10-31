@@ -94,9 +94,13 @@ describe MobRotation do
       # new file to equal 'Phoebe Joe Bob'
       expect(File.read(file_name)).to eq("Phoebe\nJoe\nBob\n")
     end
+  end
 
-  
-
+  describe ".extract_email_from(entry)" do
+    it "returns the email address" do
+      email = MobRotation.extract_email_from('a <b@example.com>')
+      expect(email).to eq('b@example.com')
+    end
   end
 end
 

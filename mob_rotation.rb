@@ -9,6 +9,10 @@ class MobRotation
     @mob_file_name = mob_file_name
   end
 
+  def self.extract_email_from(entry)
+    'b@example.com'
+  end
+
   def write(text)
     puts text
   end
