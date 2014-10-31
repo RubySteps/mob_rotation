@@ -101,6 +101,12 @@ describe MobRotation do
       email = MobRotation.extract_email_from('a <b@example.com>')
       expect(email).to eq('b@example.com')
     end
+
+    it "it handles arbitary email addresses" do
+      email = MobRotation.extract_email_from('bob <bob@example.com>')
+      expect(email).to eq('bob@example.com')
+    end
+
   end
 end
 

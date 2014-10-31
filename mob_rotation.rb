@@ -10,7 +10,9 @@ class MobRotation
   end
 
   def self.extract_email_from(entry)
-    'b@example.com'
+    if entry =~ /\<(.*)\>/
+      $1
+    end
   end
 
   def write(text)
