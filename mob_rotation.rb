@@ -18,7 +18,11 @@ class MobRotation
       case index
       when 0
         write "git username: #{person}"
-        write "git user email: phoebe@example.com"
+        if person.include?('Phoebe')
+          write "git user email: phoebe@example.com"
+        else
+          write "git user email: david-example@example.com"
+        end
         write "Driver #{person}"
       when 1
         write "Navigator #{person}"

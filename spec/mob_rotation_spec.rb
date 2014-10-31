@@ -34,10 +34,14 @@ describe do
   end
 
   def run_rotate(command = nil)
+    @output = nil
+
     `ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command}  > /tmp/results.txt` 
   end
 
-  let(:output) { File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?) }
+  def output
+    @output ||= File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?)
+  end
 
   it "allows the database file to be specified"
 
@@ -104,7 +108,7 @@ describe do
 
       run_rotate 'rotate'
 
-     expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
+      expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
     end
 
     it "outputs the new git email when running rotate" do
@@ -114,6 +118,12 @@ describe do
       run_rotate 'rotate'
 
       expect(output).to include('git user email: phoebe@example.com')
+
+      add_name_to_temp_db 'David Example <david-example@example.com>'
+
+      run_rotate 'rotate'
+
+      expect(output).to include('git user email: david-example@example.com')
     end
 
     it "updates the git user.name config when running rotate", wip: true do
