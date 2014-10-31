@@ -104,14 +104,16 @@ describe do
 
       run_rotate 'rotate'
 
-      expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
-      #    pending
+     expect(output).to include('git username: Phoebe Example', "Driver Phoebe Example")
+    end
 
-      #    git_username = `git config user.name`
-      #    git_email = `git config user.email`
+    it "outputs the new git email when running rotate" do
+      remove_temp_rotation_db
+      add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
 
-      #    expect(git_username).to eq('Phoebe Example')
-      #    expect(git_email).to eq('phoebe@example.com')
+      run_rotate 'rotate'
+
+      expect(output).to include('git user email: phoebe@example.com')
     end
 
     it "updates the git user.name config when running rotate", wip: true do

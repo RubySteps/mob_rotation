@@ -18,6 +18,7 @@ class MobRotation
       case index
       when 0
         write "git username: #{person}"
+        write "git user email: phoebe@example.com"
         write "Driver #{person}"
       when 1
         write "Navigator #{person}"
