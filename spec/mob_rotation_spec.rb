@@ -7,7 +7,7 @@ describe do
   let(:temp_rotation_db) { '/tmp/rotation_test.txt' }
 
   def remove_temp_rotation_db
-    FileUtils.rm temp_rotation_db
+    FileUtils.rm(temp_rotation_db) if File.exist?(temp_rotation_db)
   end
 
   def add_name_to_temp_db(name)

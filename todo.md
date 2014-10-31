@@ -1,3 +1,9 @@
+- add email git config on rotate
+- in our tests change directory when running command line stuff
+- get the tests passing DONE
+- clean up this working directory
+
+
 help w/o specifying database
 make main class match file name **** Done
 lots of commented out code in mob_rotation executable *** Done
