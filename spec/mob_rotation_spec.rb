@@ -126,6 +126,17 @@ describe do
       expect(output).to include('git user email: david-example@example.com')
     end
 
+    it "outputs the new git email when rotating a list of multiple users" do
+      remove_temp_rotation_db
+      add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_to_temp_db 'David Example <david@example.com>'
+
+      run_rotate 'rotate'
+
+      expect(output).to include('git user email: david@example.com')
+      
+    end
+
     it "updates the git user.name config when running rotate", wip: true do
       remove_temp_rotation_db
       add_name_to_temp_db 'Phoebe Example <phoebe@example.com>'
