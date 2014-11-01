@@ -6,6 +6,11 @@ class MobRotation
     @mobsters = File.readlines(mob_file_name).map do |entry|
       extract_name_from(entry)
     end.map(&:strip).reject(&:empty?)
+
+    @emails = File.readlines(mob_file_name).map do |entry|
+      MobRotation.extract_email_from(entry)
+    end.compact.map(&:strip).reject(&:empty?)
+
     @mob_file_name = mob_file_name
   end
 
@@ -24,11 +29,7 @@ class MobRotation
       case index
       when 0
         write "git username: #{person}"
-        if person.include?('Phoebe')
-          write "git user email: phoebe@example.com"
-        else
-          write "git user email: david-example@example.com"
-        end
+        write "git user email: #{@emails[index]}"
         write "Driver #{person}"
       when 1
         write "Navigator #{person}"
