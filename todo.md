@@ -2,6 +2,9 @@
 - in our tests change directory when running command line stuff
 - get the tests passing DONE
 - clean up this working directory
+- rename unit and acceptance tests to be more intuitive (maybe)
+- refactor MobRotation#initialize to read file once
+- refactor MobRotation#initialize to use either 2 class methods or 2 instance methods (extract_<something>_from)
 
 
 help w/o specifying database

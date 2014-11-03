@@ -14,6 +14,7 @@ class MobRotation
     @mob_file_name = mob_file_name
   end
 
+  
   def self.extract_email_from(entry)
     if entry =~ /\<(.*)\>/
       $1
