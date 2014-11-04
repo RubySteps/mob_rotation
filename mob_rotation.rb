@@ -7,11 +7,10 @@ class MobRotation
       extract_name_from(entry)
     end
     
-    dirty_emails = each_database_entry(mob_file_name) do |entry|
+    @emails = clean_entries_in(mob_file_name) do |entry|
       MobRotation.extract_email_from(entry)
     end
-    @emails = cleanup dirty_emails
-
+    
     @mob_file_name = mob_file_name
   end
 
