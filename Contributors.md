@@ -5,8 +5,9 @@
 * [Ben Thompson](http://github.com/kotay)
 * [Dan Wagner](http://github.com/danwagnerco)
 * [Harri Jauri](http://twitter.com/harrijauri)
-* [Jacqueline Homan](http://github.com/jacqueline-homan)
+* [Jacqueline S. Homan](http://github.com/jacqueline-homan)
 * [Jared Smith](http://sublimecoding.com)
+* [J. B. Rainsberger](http://jbrains.ca)
 * [Jen Diamond](http://jendiamond.com)
 * [Jonathan Whittington](http://github.com/ixil)
 * Kocur4d
