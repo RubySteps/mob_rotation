@@ -3,18 +3,23 @@ require 'time'
 class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
-    @mobsters = File.readlines(mob_file_name).map do |entry|
+    dirty_mobsters = File.readlines(mob_file_name).map do |entry|
       extract_name_from(entry)
-    end.map(&:strip).reject(&:empty?)
-
-    @emails = File.readlines(mob_file_name).map do |entry|
+    end
+    @mobsters = cleanup dirty_mobsters
+    
+    dirty_emails = File.readlines(mob_file_name).map do |entry|
       MobRotation.extract_email_from(entry)
-    end.compact.map(&:strip).reject(&:empty?)
+    end
+    @emails = cleanup dirty_emails
 
     @mob_file_name = mob_file_name
   end
 
-  
+  def cleanup(list)
+    list.compact.map(&:strip).reject(&:empty?)
+  end
+
   def self.extract_email_from(entry)
     if entry =~ /\<(.*)\>/
       $1
