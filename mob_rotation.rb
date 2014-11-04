@@ -3,10 +3,11 @@ require 'time'
 class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
+    
     @mobsters = clean_entries_in(mob_file_name) do | entry |
       extract_name_from(entry)
     end
-    
+
     @emails = clean_entries_in(mob_file_name) do |entry|
       MobRotation.extract_email_from(entry)
     end
