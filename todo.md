@@ -1,3 +1,4 @@
+- get a real test environment separated from production
 - add email git config on rotate
 - in our tests change directory when running command line stuff
 - get the tests passing DONE
