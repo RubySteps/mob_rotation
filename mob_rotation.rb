@@ -9,7 +9,7 @@ class MobRotation
     end
 
     @emails = clean_entries_in(mob_file_name) do |entry|
-      MobRotation.extract_email_from(entry)
+      extract_email_from(entry)
     end
     
     @mob_file_name = mob_file_name
@@ -32,7 +32,7 @@ class MobRotation
     list.compact.map(&:strip).reject(&:empty?)
   end
 
-  def self.extract_email_from(entry)
+  def extract_email_from(entry)
     if entry =~ /\<(.*)\>/
       $1
     end

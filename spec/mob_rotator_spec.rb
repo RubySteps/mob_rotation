@@ -97,13 +97,17 @@ describe MobRotation do
   end
 
   describe ".extract_email_from(entry)" do
+    after(:each) do
+      FileUtils.rm_f("irrelevant_file")
+    end
+    
     it "returns the email address" do
-      email = MobRotation.extract_email_from('a <b@example.com>')
+      email = MobRotation.new('irrelevant_file').extract_email_from('a <b@example.com>')
       expect(email).to eq('b@example.com')
     end
 
     it "it handles arbitary email addresses" do
-      email = MobRotation.extract_email_from('bob <bob@example.com>')
+      email = MobRotation.new('irrelevant_file').extract_email_from('bob <bob@example.com>')
       expect(email).to eq('bob@example.com')
     end
 
