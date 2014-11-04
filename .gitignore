@@ -3,3 +3,6 @@
 rotation.txt
 test*.txt
 results.txt
+.bundle/*
+bin/*
+rotate.txt
