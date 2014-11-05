@@ -4,31 +4,31 @@ class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
     
-    @mobsters = clean_entries_in(mob_file_name) do | entry |
+    @mobsters = MobRotation.clean_entries_in(mob_file_name) do | entry |
       extract_name_from(entry)
     end
 
-    @emails = clean_entries_in(mob_file_name) do |entry|
+    @emails = MobRotation.clean_entries_in(mob_file_name) do |entry|
       extract_email_from(entry)
     end
     
     @mob_file_name = mob_file_name
   end
 
-  def clean_entries_in(filename)
+  def self.clean_entries_in(filename)
     dirty_entries = each_database_entry(filename) do |entry|
       yield entry
     end
     cleanup dirty_entries
   end
 
-  def each_database_entry(filename)
+  def self.each_database_entry(filename)
     File.readlines(filename).map do |entry|
       yield entry
     end
   end
 
-  def cleanup(list)
+  def self.cleanup(list)
     list.compact.map(&:strip).reject(&:empty?)
   end
 
