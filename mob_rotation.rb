@@ -3,14 +3,13 @@ require 'time'
 class MobRotation
   def initialize(mob_file_name)
     FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
+    database = Database.new(mob_file_name)
 
-    database = Database.new
-
-    @mobsters = database.clean_entries_in(mob_file_name) do | entry |
+    @mobsters = database.clean_entries_in do | entry |
       extract_name_from(entry)
     end
 
-    @emails = database.clean_entries_in(mob_file_name) do |entry|
+    @emails = database.clean_entries_in do |entry|
       extract_email_from(entry)
     end
     
@@ -18,11 +17,15 @@ class MobRotation
   end
 
   class Database
-    def clean_entries_in(filename)
-      dirty_entries = each_database_entry(filename) do |entry|
+    def clean_entries_in
+      dirty_entries = each_database_entry(@filename) do |entry|
         yield entry
       end
       cleanup dirty_entries
+    end
+
+    def initialize(filename)
+      @filename = filename
     end
 
     def each_database_entry(filename)
@@ -114,6 +117,7 @@ class MobRotation
   
   private
   
+  # SMELL I don't want to depend on a file.
   def sync!
     File.open(@mob_file_name, 'w') do |file|
       @mobsters.each { |m| file << m << "\n" }
