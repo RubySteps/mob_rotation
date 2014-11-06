@@ -1,7 +1,7 @@
 require 'time'
 
 class MobRotation
-  def initialize(mob_file_name, database = Database.new(mob_file_name))
+  def initialize(database)
     @database = database
 
     @mobsters = @database.clean_entries_in do | entry |

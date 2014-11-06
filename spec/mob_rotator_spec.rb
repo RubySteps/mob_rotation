@@ -3,9 +3,10 @@ require_relative 'spec_helper'
 describe MobRotation do
   extend FooFighter
 
+  let(:mob_rotator) { MobRotation.new(MobRotation::Database.new(file_name)) }
+
   describe "#show_mobsters" do
 
-    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test.txt" }
     let(:output) { Output.new }
 
@@ -33,7 +34,6 @@ describe MobRotation do
   end
 
   describe "#add_mobster" do
-    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test.txt" }
 
     it "adds a mobster to the file" do
@@ -59,7 +59,6 @@ describe MobRotation do
   end
   
   describe "#remove_mobster" do
-    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test_remove.txt" }
     
     before do
@@ -78,7 +77,6 @@ describe MobRotation do
   end
 
   describe "#rotate" do
-    let(:mob_rotator) { MobRotation.new(file_name) }
     let(:file_name) { "test_remove.txt" }
     
     before do
@@ -102,12 +100,12 @@ describe MobRotation do
     end
     
     it "returns the email address" do
-      email = MobRotation.new('irrelevant_file').extract_email_from('a <b@example.com>')
+      email = MobRotation.new(MobRotation::Database.new("irrelevant_file")).extract_email_from('a <b@example.com>')
       expect(email).to eq('b@example.com')
     end
 
     it "it handles arbitary email addresses" do
-      email = MobRotation.new('irrelevant_file').extract_email_from('bob <bob@example.com>')
+      email = MobRotation.new(MobRotation::Database.new('irrelevant_file')).extract_email_from('bob <bob@example.com>')
       expect(email).to eq('bob@example.com')
     end
 
