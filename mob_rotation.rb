@@ -1,9 +1,8 @@
 require 'time'
 
 class MobRotation
-  def initialize(mob_file_name)
-    FileUtils.touch(mob_file_name) unless File.exist?(mob_file_name)
-    @database = Database.new(mob_file_name)
+  def initialize(mob_file_name, database = Database.new(mob_file_name))
+    @database = database
 
     @mobsters = @database.clean_entries_in do | entry |
       extract_name_from(entry)
@@ -24,6 +23,7 @@ class MobRotation
 
     def initialize(filename)
       @filename = filename
+      FileUtils.touch(filename) unless File.exist?(filename)
     end
 
     def write(mobsters)
