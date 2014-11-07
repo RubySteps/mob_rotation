@@ -161,6 +161,30 @@ describe do
       expect(git_email).to eq('joe@example.com')
     end
 
+    xit "falls back to a default email address when the driver has none" do
+      remove_temp_rotation_db
+      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Bob Example'
+
+      run_rotate 'rotate'
+
+      git_email = `git --git-dir=./tmp/test_project/.git config user.email`.strip
+      expect(git_email).to eq(default_driver_email_address = 'mob@rubysteps.com')
+    end
+
+    it "updates the email in the mobsters database when rotating, even when someone's missing an email address" do
+      remove_temp_rotation_db
+      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Bob Example'
+      add_name_and_email_to_temp_db 'Joe Example <joe@example.com>'
+
+      run_rotate 'rotate'
+      run_rotate 'rotate'
+
+      git_email = `git --git-dir=./tmp/test_project/.git config user.email`.strip
+      expect(git_email).to eq('joe@example.com')
+    end
+
   end
   
   it "adds mobsters to the mob list" do

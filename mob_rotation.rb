@@ -29,7 +29,7 @@ class MobRotation
 
     def write(mobsters, emails)
       File.open(@filename, 'w') do |file|
-        mobsters.zip(emails).each { |mobster, email| file << mobster << (email && " <#{email}>") << "\n" }
+        mobsters.zip(emails).each { |mobster, email| file << mobster << (" <#{email}>" if email && !email.empty?) << "\n" }
       end
     end
 
@@ -40,7 +40,7 @@ class MobRotation
     end
 
     def cleanup(list)
-      list.compact.map(&:strip).reject(&:empty?)
+      list.map(&:to_s).map(&:strip)
     end
   end
 
