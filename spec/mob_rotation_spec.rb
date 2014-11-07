@@ -128,7 +128,7 @@ describe do
       
     end
 
-    it "updates the git user.name config when running rotate", wip: true do
+    it "updates the git user.name config when running rotate" do
       remove_temp_rotation_db
       add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
 
