@@ -7,6 +7,11 @@
 - refactor MobRotation#initialize to read file once
 - refactor MobRotation#initialize to use either 2 class methods or 2 instance methods (extract_<something>_from)
 - add hook to emacs configuration to automatically show line numbers in (all?) files
+- match pattern on remove (like remove Jacq*)
+- shuffle the mobsters
+- move test output to ./tmp instead of /tmp
+- move todo/features to git issues/ clean up todo
+- Timer
 
 help w/o specifying database
 make main class match file name **** Done

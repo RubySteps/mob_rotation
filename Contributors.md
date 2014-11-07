@@ -1,6 +1,6 @@
 * [Abhishek Bose](http://abhishekbose.com)
 * [Alistair Cockburn](http://alistair.cockburn.us)
-* [Amitai Schlair](https://twitter.com/schmonz)
+* [Amitai Schlair](http://www.schmonz.com)
 * [Andrew Broman](http://github/afbroman)
 * [Ben Thompson](http://github.com/kotay)
 * [Dan Wagner](http://github.com/danwagnerco)
