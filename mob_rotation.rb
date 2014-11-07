@@ -27,10 +27,14 @@ class MobRotation
       FileUtils.touch(filename) unless File.exist?(filename)
     end
 
-    def write(mobsters, emails)
+    def write(names, emails)
       File.open(@filename, 'w') do |file|
-        mobsters.zip(emails).each { |mobster, email| file << mobster << (" <#{email}>" if email && !email.empty?) << "\n" }
+        names.zip(emails).each { |name, email| file << format_mobster(name, email) << "\n" }
       end
+    end
+
+    def format_mobster(name, email)
+      name + (" <#{email}>" if email && !email.empty?).to_s
     end
 
     def each_database_entry(filename)
