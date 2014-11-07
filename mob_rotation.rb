@@ -113,6 +113,7 @@ class MobRotation
     @emails << @emails.shift
     # Hacky BS because of weird test output redirection
     system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.email '#{@emails.first.strip}'" rescue nil
     sync!
   end
 

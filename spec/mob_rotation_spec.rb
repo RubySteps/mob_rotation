@@ -137,6 +137,16 @@ describe do
       git_username = `git --git-dir=./tmp/test_project/.git config user.name`.strip
       expect(git_username).to eq('Phoebe Example')
     end
+
+    it "updates the git user.email config when running rotate" do
+      remove_temp_rotation_db
+      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+
+      run_rotate 'rotate'
+
+      git_email = `git --git-dir=./tmp/test_project/.git config user.email`.strip
+      expect(git_email).to eq('phoebe@example.com')
+    end
   end
   
   it "adds mobsters to the mob list" do
