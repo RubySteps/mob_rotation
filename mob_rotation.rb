@@ -27,9 +27,9 @@ class MobRotation
       FileUtils.touch(filename) unless File.exist?(filename)
     end
 
-    def write(mobsters)
+    def write(mobsters, emails)
       File.open(@filename, 'w') do |file|
-        mobsters.each { |m| file << m << "\n" }
+        mobsters.zip(emails).each { |mobster, email| file << mobster << (email && " <#{email}>") << "\n" }
       end
     end
 
@@ -125,7 +125,7 @@ class MobRotation
   private
   
   def sync!
-    @database.write(@mobsters)
+    @database.write(@mobsters, @emails)
   end
   
   def found_mobster(line, mobster)
