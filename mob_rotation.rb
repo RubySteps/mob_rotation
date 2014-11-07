@@ -5,7 +5,7 @@ class MobRotation
     @git_dir = git_dir
     @database = database
 
-    @mobsters = @database.clean_entries_in do | entry |
+    @names = @database.clean_entries_in do | entry |
       extract_name_from(entry)
     end
 
@@ -59,7 +59,7 @@ class MobRotation
   end
 
   def show_mobsters()
-    @mobsters.each_with_index do |person, index|
+    @names.each_with_index do |person, index|
       case index
       when 0
         write "git username: #{person}"
@@ -75,15 +75,15 @@ class MobRotation
 
   def add_mobster(*mobsters)
     mobsters.each do |mobster|
-      @mobsters << mobster
+      @names << mobster
     end
 
     sync!
   end
 
   def remove_mobster(given_mobster)
-    @mobsters.each do |mobster|
-      @mobsters.delete(mobster) if found_mobster(mobster, given_mobster) 
+    @names.each do |mobster|
+      @names.delete(mobster) if found_mobster(mobster, given_mobster) 
     end
     sync!
   end
@@ -113,10 +113,10 @@ class MobRotation
   end
 
   def rotate
-    @mobsters << @mobsters.shift
+    @names << @names.shift
     @emails << @emails.shift
     # Hacky BS because of weird test output redirection
-    system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.name '#{@names.first.strip}'" rescue nil
     system "git --git-dir=#{@git_dir} config user.email '#{@emails.first.strip}'" rescue nil
     sync!
   end
@@ -129,7 +129,7 @@ class MobRotation
   private
   
   def sync!
-    @database.write(@mobsters, @emails)
+    @database.write(@names, @emails)
   end
   
   def found_mobster(line, mobster)
