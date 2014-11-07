@@ -4,6 +4,11 @@ require "fileutils"
 describe do
   let(:temp_rotation_db) { '/tmp/rotation_test.txt' }
 
+  before do
+    `mkdir -p ./tmp/test_project`
+    `git init ./tmp/test_project`
+  end
+
   def remove_temp_rotation_db
     FileUtils.rm(temp_rotation_db) if File.exist?(temp_rotation_db)
   end
@@ -13,22 +18,10 @@ describe do
   end    
 
   before do
-    @git_username = `git config user.name`.strip
-    @git_email = `git config user.email`.strip
-  end
-
-  before do
     remove_temp_rotation_db
 
     add_name_and_email_to_temp_db 'Bob'
     add_name_and_email_to_temp_db 'Phoebe'
-  end
-
-  after do
-    unless @git_username.empty? or @git_email.empty?
-      `git config user.name '#{@git_username}'`
-      `git config user.email '#{@git_email}'`
-    end
   end
 
   def run_rotate(command = nil)
@@ -141,7 +134,7 @@ describe do
 
       run_rotate 'rotate'
 
-      git_username = `git config user.name`.strip
+      git_username = `git --git-dir=./tmp/test_project config user.name`.strip
       expect(git_username).to eq('Phoebe Example')
     end
   end

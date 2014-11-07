@@ -110,7 +110,8 @@ class MobRotation
   def rotate
     @mobsters << @mobsters.shift
     @emails << @emails.shift
-    system "git config user.name '#{@mobsters.first.strip}'" rescue nil
+    # Hacky BS because of weird test output redirection
+    system "git --git-dir=./tmp/test_project config user.name '#{@mobsters.first.strip}'" rescue nil
     sync!
   end
 
