@@ -1,7 +1,8 @@
 require 'time'
 
 class MobRotation
-  def initialize(database)
+  def initialize(database, git_dir)
+    @git_dir = git_dir
     @database = database
 
     @mobsters = @database.clean_entries_in do | entry |
@@ -111,7 +112,7 @@ class MobRotation
     @mobsters << @mobsters.shift
     @emails << @emails.shift
     # Hacky BS because of weird test output redirection
-    system "git --git-dir=./tmp/test_project config user.name '#{@mobsters.first.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.strip}'" rescue nil
     sync!
   end
 

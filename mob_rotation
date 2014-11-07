@@ -4,9 +4,10 @@ require_relative 'mob_rotation'
 file_name = ARGV[0] || 'rotate.txt'
 command = ARGV[1]
 mobster_names = ARGV[2..-1]
+git_dir = ENV['MOB_GIT_DIR'] || File.join(Dir.pwd, ".git")
 
-def command_router(command, mobster_names, file_name)
-  mob_rotator = MobRotation.new(MobRotation::Database.new(file_name))
+def command_router(command, mobster_names, file_name, git_dir)
+  mob_rotator = MobRotation.new(MobRotation::Database.new(file_name), git_dir)
   case command
   when nil
     mob_rotator.show_mobsters
@@ -28,4 +29,4 @@ def command_router(command, mobster_names, file_name)
   end
 end
 
-command_router(command, mobster_names, file_name)
+command_router(command, mobster_names, file_name, git_dir)

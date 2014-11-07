@@ -27,7 +27,7 @@ describe do
   def run_rotate(command = nil)
     @output = nil
 
-    `ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command}  > /tmp/results.txt` 
+    `MOB_GIT_DIR='./tmp/test_project/.git' ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command}  > /tmp/results.txt`
   end
 
   def output
@@ -134,7 +134,7 @@ describe do
 
       run_rotate 'rotate'
 
-      git_username = `git --git-dir=./tmp/test_project config user.name`.strip
+      git_username = `git --git-dir=./tmp/test_project/.git config user.name`.strip
       expect(git_username).to eq('Phoebe Example')
     end
   end

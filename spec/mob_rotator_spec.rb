@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 describe MobRotation do
   extend FooFighter
 
-  let(:mob_rotator) { MobRotation.new(MobRotation::Database.new(file_name)) }
+  let(:mob_rotator) { MobRotation.new(MobRotation::Database.new(file_name), "./tmp/test_project/.git") }
 
   describe "#show_mobsters" do
 
@@ -100,15 +100,14 @@ describe MobRotation do
     end
     
     it "returns the email address" do
-      email = MobRotation.new(MobRotation::Database.new("irrelevant_file")).extract_email_from('a <b@example.com>')
+      email = MobRotation.new(MobRotation::Database.new("irrelevant_file"), "irrelevant git dir").extract_email_from('a <b@example.com>')
       expect(email).to eq('b@example.com')
     end
 
     it "it handles arbitary email addresses" do
-      email = MobRotation.new(MobRotation::Database.new('irrelevant_file')).extract_email_from('bob <bob@example.com>')
+      email = MobRotation.new(MobRotation::Database.new('irrelevant_file'), "irrelevant git dir").extract_email_from('bob <bob@example.com>')
       expect(email).to eq('bob@example.com')
     end
 
   end
 end
-
