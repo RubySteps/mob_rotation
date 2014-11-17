@@ -13,8 +13,9 @@ describe do
     FileUtils.rm(temp_rotation_db) if File.exist?(temp_rotation_db)
   end
 
-  def add_name_and_email_to_temp_db(name)
-    `echo "#{name}" >> #{temp_rotation_db}`
+  def add_name_and_email_to_temp_db(name, email=nil)
+    s = email ? " <#{email}>" : ""
+    `echo "#{name} #{s}" >> #{temp_rotation_db}`
   end    
 
   before do
@@ -86,7 +87,7 @@ describe do
 
     it "hides the email address from rotation output" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
 
       run_rotate 'rotate'
 
@@ -95,7 +96,7 @@ describe do
 
     it "outputs the new git username when running rotate" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
 
       run_rotate 'rotate'
 
@@ -104,13 +105,13 @@ describe do
 
     it "outputs the new git email when running rotate" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
 
       run_rotate 'rotate'
 
       expect(output).to include('git user email: phoebe@example.com')
 
-      add_name_and_email_to_temp_db 'David Example <david-example@example.com>'
+      add_name_and_email_to_temp_db 'David Example', 'david-example@example.com'
 
       run_rotate 'rotate'
 
@@ -119,8 +120,8 @@ describe do
 
     it "outputs the new git email when rotating a list of multiple users" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
-      add_name_and_email_to_temp_db 'David Example <david@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
+      add_name_and_email_to_temp_db 'David Example', 'david@example.com'
 
       run_rotate 'rotate'
 
@@ -130,7 +131,7 @@ describe do
 
     it "updates the git user.name config when running rotate" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
 
       run_rotate 'rotate'
 
@@ -140,7 +141,7 @@ describe do
 
     it "updates the git user.email config when running rotate" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
 
       run_rotate 'rotate'
 
@@ -150,9 +151,9 @@ describe do
 
     it "updates the email in the mobsters database when rotating" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
-      add_name_and_email_to_temp_db 'Bob Example <bob@example.com>'
-      add_name_and_email_to_temp_db 'Joe Example <joe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
+      add_name_and_email_to_temp_db 'Bob Example' 'bob@example.com'
+      add_name_and_email_to_temp_db 'Joe Example', 'joe@example.com'
 
       run_rotate 'rotate'
       run_rotate 'rotate'
@@ -163,7 +164,7 @@ describe do
 
     xit "falls back to a default email address when the driver has none" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
       add_name_and_email_to_temp_db 'Bob Example'
 
       run_rotate 'rotate'
@@ -174,9 +175,9 @@ describe do
 
     it "updates the email in the mobsters database when rotating, even when someone's missing an email address" do
       remove_temp_rotation_db
-      add_name_and_email_to_temp_db 'Phoebe Example <phoebe@example.com>'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
       add_name_and_email_to_temp_db 'Bob Example'
-      add_name_and_email_to_temp_db 'Joe Example <joe@example.com>'
+      add_name_and_email_to_temp_db 'Joe Example', 'joe@example.com'
 
       run_rotate 'rotate'
       run_rotate 'rotate'
