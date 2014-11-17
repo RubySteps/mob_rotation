@@ -162,7 +162,7 @@ describe do
       expect(git_email).to eq('joe@example.com')
     end
 
-    xit "falls back to a default email address when the driver has none" do
+    it "falls back to a default email address when the driver has none" do
       remove_temp_rotation_db
       add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
       add_name_and_email_to_temp_db 'Bob Example'

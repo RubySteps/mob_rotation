@@ -127,10 +127,14 @@ class MobRotation
     @emails << @emails.shift
     # Hacky BS because of weird test output redirection
     system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.strip}'" rescue nil
-    system "git --git-dir=#{@git_dir} config user.email '#{@emails.first.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
     sync!
   end
 
+  def extract_next_mobster_email
+    email = @emails.first.strip
+    email.empty? ? "mob@rubysteps.com" : email
+  end
   
   def time_to_rotate
     puts "Time to rotate!"
