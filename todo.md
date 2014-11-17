@@ -1,5 +1,5 @@
 - get a real test environment separated from production
-- add email git config on rotate
+- add email git config on rotate DONE
 - in our tests change directory when running command line stuff
 - get the tests passing DONE
 - clean up this working directory
