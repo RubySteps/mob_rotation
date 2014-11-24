@@ -223,4 +223,16 @@ describe do
     }.to raise_error(Timeout::Error)
     expect(output).to eq([])
   end
+
+  describe "beeping" do
+    xit "prints an 'audible' beep character" do
+      class OriginalRspecMatchers
+        include RSpec::Matchers
+      end
+      expect { MobRotation.beep }.to OriginalRspecMatchers.new.output("\a").to_stdout
+    end
+    xit "runs for a specific amount of time and then notifies with a beep"
+    xit "waits until time runs out before stating 'Time to Rotate'"
+    xit "runs the timer when rotating"
+  end
 end
