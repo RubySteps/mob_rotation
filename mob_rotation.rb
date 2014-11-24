@@ -117,6 +117,10 @@ class MobRotation
     puts "Time to rotate"
   end
 
+  def self.beep
+    print "\a"
+  end
+
   def inform_lovely_user(command)
     puts "Unknown command #{command}"
     show_help

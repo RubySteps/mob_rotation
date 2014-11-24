@@ -225,7 +225,7 @@ describe do
   end
 
   describe "beeping" do
-    xit "prints an 'audible' beep character" do
+    it "prints an 'audible' beep character" do
       class OriginalRspecMatchers
         include RSpec::Matchers
       end
