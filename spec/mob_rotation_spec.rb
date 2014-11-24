@@ -16,7 +16,7 @@ describe do
   def add_name_and_email_to_temp_db(name, email=nil)
     s = email ? " <#{email}>" : ""
     `echo "#{name} #{s}" >> #{temp_rotation_db}`
-  end    
+  end
 
   before do
     remove_temp_rotation_db
@@ -26,9 +26,13 @@ describe do
   end
 
   def run_rotate(command = nil)
+    run_rotate_with_specified_redirect(command, '> /tmp/results.txt')
+  end
+
+  def run_rotate_with_specified_redirect(command = nil, redirect = nil)
     @output = nil
 
-    `MOB_GIT_DIR='./tmp/test_project/.git' ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command}  > /tmp/results.txt`
+    `MOB_GIT_DIR='./tmp/test_project/.git' ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command} #{redirect}`
   end
 
   def output
@@ -42,11 +46,11 @@ describe do
       FileUtils.mv('./rotate.txt', './rotate.txt.backup')
     end
     FileUtils.cp(temp_rotation_db, './rotate.txt')
-    `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt` 
+    `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt`
     begin
       expect(output).to include("Driver Bob","Navigator Phoebe")
     ensure
-      FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup    
+      FileUtils.mv('./rotate.txt.backup', './rotate.txt') if backup
     end
   end
 
@@ -59,7 +63,7 @@ describe do
     run_rotate 'help'
     expected = ['Available commands are:',
     '<database txt file> help',
-    '<database txt file> rotate', 
+    '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
     '<database txt file> remove <name1> [name2]']
 
@@ -68,10 +72,10 @@ describe do
 
   it "prints out help on an unknown command" do
     run_rotate 'chicken'
-    expected = ['Unknown command chicken', 
+    expected = ['Unknown command chicken',
     'Available commands are:',
     '<database txt file> help',
-    '<database txt file> rotate', 
+    '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
     '<database txt file> remove <name1> [name2]']
 
@@ -126,7 +130,6 @@ describe do
       run_rotate 'rotate'
 
       expect(output).to include('git user email: david@example.com')
-      
     end
 
     it "updates the git user.name config when running rotate" do
@@ -187,7 +190,7 @@ describe do
     end
 
   end
-  
+
   it "adds mobsters to the mob list" do
     run_rotate 'add Joe'
     expect(output).to include("Driver Bob", "Navigator Phoebe", "Mobster Joe")
@@ -197,17 +200,17 @@ describe do
     run_rotate 'add Phil Steve'
     expect(output).to include("Mobster Phil", "Mobster Steve")
   end
-  
+
   it "removes multiple mobsters at once" do
     run_rotate 'add Phil'
     run_rotate 'remove Bob Phoebe'
     expect(output).to include("Driver Phil")
   end
-  
+
   it "removes mobsters from the mob list" do
     run_rotate 'remove Bob'
     expect(output).to include("Driver Phoebe")
-  end 
+  end
 
   it "it runs for a specific amount of time" do
     ts = Time.now
@@ -225,12 +228,23 @@ describe do
   end
 
   describe "beeping" do
-    it "prints an 'audible' beep character" do
-      class OriginalRspecMatchers
+    before do
+      class WeOverrodeOutputAndUsedItALot
         include RSpec::Matchers
       end
-      expect { MobRotation.beep }.to OriginalRspecMatchers.new.output("\a").to_stdout
     end
+
+    it "prints an 'audible' beep character" do
+      expect { MobRotation.beep }.to WeOverrodeOutputAndUsedItALot.new.output("\a").to_stdout
+    end
+
+    it "notifies with a beep", wip: true do
+      pending "we're not sure why it's not properly reading the stdout"
+      expect do
+        run_rotate_with_specified_redirect 'run_with_timer_and_beep 2'
+      end.to WeOverrodeOutputAndUsedItALot.new.output("\a").to_stdout
+    end
+
     xit "runs for a specific amount of time and then notifies with a beep"
     xit "waits until time runs out before stating 'Time to Rotate'"
     xit "runs the timer when rotating"

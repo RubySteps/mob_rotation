@@ -97,7 +97,7 @@ class MobRotation
     end
     sync!
   end
-  
+
   def remove_mobsters(*mobsters)
     mobsters.each do |mobster|
       remove_mobster(mobster)
@@ -107,7 +107,7 @@ class MobRotation
   def show_help()
     puts ['Available commands are:',
     '<database txt file> help',
-    '<database txt file> rotate', 
+    '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
     '<database txt file> remove <name1> [name2]']
   end
@@ -119,6 +119,10 @@ class MobRotation
 
   def self.beep
     print "\a"
+  end
+
+  def run_timer_and_beep
+    MobRotation.beep
   end
 
   def inform_lovely_user(command)
@@ -139,17 +143,17 @@ class MobRotation
     email = @emails.first.strip
     email.empty? ? "mob@rubysteps.com" : email
   end
-  
+
   def time_to_rotate
     puts "Time to rotate!"
   end
-  
+
   private
-  
+
   def sync!
     @database.write(@mobsters, @emails)
   end
-  
+
   def found_mobster(line, mobster)
     line && line.strip == mobster
   end
