@@ -30,6 +30,7 @@ describe do
   end
 
   def run_rotate_with_specified_redirect(command = nil, redirect = nil)
+    # TODO we have no idea why this is necessary, and don't like it
     @output = nil
 
     `MOB_GIT_DIR='./tmp/test_project/.git' ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command} #{redirect}`
@@ -238,11 +239,9 @@ describe do
       expect { MobRotation.beep }.to WeOverrodeOutputAndUsedItALot.new.output("\a").to_stdout
     end
 
-    it "notifies with a beep", wip: true do
-      pending "we're not sure why it's not properly reading the stdout"
-      expect do
-        run_rotate_with_specified_redirect 'run_with_timer_and_beep 2'
-      end.to WeOverrodeOutputAndUsedItALot.new.output("\a").to_stdout
+    it "notifies with a beep" do
+      stdout_output = run_rotate_with_specified_redirect 'run_with_timer_and_beep'
+      expect(stdout_output).to eq("\a")
     end
 
     xit "runs for a specific amount of time and then notifies with a beep"
