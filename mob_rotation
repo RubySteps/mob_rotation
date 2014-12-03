@@ -25,7 +25,7 @@ def command_router(command, mobster_names, file_name, git_dir)
   when "run_with_timer"
     mob_rotator.run_timer(ARGV[2].to_i)
   when "run_with_timer_and_beep"
-    mob_rotator.run_timer_and_beep
+    mob_rotator.run_timer_and_beep(ARGV[2].to_i)
   else
     mob_rotator.inform_lovely_user(command)
   end

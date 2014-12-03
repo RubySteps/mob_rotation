@@ -121,8 +121,8 @@ class MobRotation
     print "\a"
   end
 
-  def run_timer_and_beep
-    run_timer(2)
+  def run_timer_and_beep(seconds=300)
+    run_timer(seconds)
     MobRotation.beep
   end
 
