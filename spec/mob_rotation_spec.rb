@@ -241,10 +241,19 @@ describe do
 
     it "notifies with a beep" do
       stdout_output = run_rotate_with_specified_redirect 'run_with_timer_and_beep'
-      expect(stdout_output).to eq("\a")
+      expect(stdout_output).to include("\a")
     end
 
-    xit "runs for a specific amount of time and then notifies with a beep"
+    it "always runs for 2 seconds and then notifies with a beep" do
+      ts = Time.now
+      stdout_output = run_rotate_with_specified_redirect 'run_with_timer_and_beep'
+      tf = Time.now
+      expect(tf - ts).to be_within(1).of(2.0)
+      expect(stdout_output).to include("Time to rotate")
+      expect(stdout_output).to include("\a")
+    end
+
+    xit "runs for a specified amount of time and then notifies with a beep"
     xit "waits until time runs out before stating 'Time to Rotate'"
     xit "runs the timer when rotating"
   end

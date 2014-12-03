@@ -122,6 +122,7 @@ class MobRotation
   end
 
   def run_timer_and_beep
+    run_timer(2)
     MobRotation.beep
   end
 
