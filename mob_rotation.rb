@@ -109,23 +109,19 @@ class MobRotation
     '<database txt file> help',
     '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
-  end
-
-  def run_timer(seconds)
-    sleep(seconds)
-    puts "Time to rotate"
     '<database txt file> remove <name1> [name2]',
     '<database txt file> run_with_timer [seconds]'
     ]
   end
 
-  def self.beep
-    print "\a"
+  def self.annoying_and_probably_not_accidental_beep(n=MobRotation.number_of_beeps)
+    n.times { print("\a") || sleep(MobRotation.minimum_sleep_between_beeps) }
   end
 
-  def run_timer_and_beep(seconds=300)
-    run_timer(seconds)
-    MobRotation.beep
+  def countdown_to_rotate(seconds=300)
+    sleep(seconds)
+    puts "Time to rotate"
+    MobRotation.annoying_and_probably_not_accidental_beep
   end
 
   def inform_lovely_user(command)
@@ -149,6 +145,14 @@ class MobRotation
 
   def time_to_rotate
     puts "Time to rotate!"
+  end
+
+  def self.minimum_sleep_between_beeps
+    0.2
+  end
+
+  def self.number_of_beeps
+    5
   end
 
   private

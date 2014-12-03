@@ -221,7 +221,7 @@ describe do
     ts = Time.now
     run_rotate 'run_with_timer 3'
     tf = Time.now
-    expect(tf - ts).to be_within(1).of(3.0)
+    expect(tf - ts).to be_within(1).of(3.0 + MobRotation.minimum_sleep_between_beeps * MobRotation.number_of_beeps)
     expect(output).to include("Time to rotate")
   end
 
@@ -232,32 +232,19 @@ describe do
     expect(output).to eq([])
   end
 
-  describe "beeping" do
-    before do
-      class WeOverrodeOutputAndUsedItALot
-        include RSpec::Matchers
-      end
-    end
-
-    it "prints an 'audible' beep character" do
-      expect { MobRotation.beep }.to WeOverrodeOutputAndUsedItALot.new.output("\a").to_stdout
-    end
-
-    it "notifies with a beep" do
-      stdout_output = run_rotate_with_specified_redirect 'run_with_timer_and_beep'
-      expect(stdout_output).to include("\a")
-    end
-
-    it "runs for a specified amount of time and then notifies with a beep" do
-      ts = Time.now
-      stdout_output = run_rotate_with_specified_redirect 'run_with_timer_and_beep 2'
-      tf = Time.now
-      expect(tf - ts).to be_within(1).of(2.0)
-      expect(stdout_output).to include("Time to rotate")
-      expect(stdout_output).to include("\a")
-    end
-
-    xit "waits until time runs out before stating 'Time to Rotate'"
-    xit "runs the timer when rotating"
+  it "notifies with a beep" do
+    stdout_output = run_rotate_with_specified_redirect 'run_with_timer'
+    expect(stdout_output).to include("\a")
   end
+
+  it "runs for a specified amount of time and then notifies with a beep" do
+    ts = Time.now
+    stdout_output = run_rotate_with_specified_redirect 'run_with_timer 2'
+    tf = Time.now
+    expect(tf - ts).to be_within(1).of(2.0 + MobRotation.minimum_sleep_between_beeps * MobRotation.number_of_beeps)
+    expect(stdout_output).to include("Time to rotate")
+    expect(stdout_output).to include("\a")
+  end
+
+  xit "runs the timer when rotating"
 end
