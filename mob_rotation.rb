@@ -109,12 +109,14 @@ class MobRotation
     '<database txt file> help',
     '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
-    '<database txt file> remove <name1> [name2]']
   end
 
   def run_timer(seconds)
     sleep(seconds)
     puts "Time to rotate"
+    '<database txt file> remove <name1> [name2]',
+    '<database txt file> run_with_timer [seconds]'
+    ]
   end
 
   def self.beep
