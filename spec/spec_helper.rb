@@ -12,6 +12,9 @@ end
 
 module FooFighter
   def method_added(m)
-    raise "no foo for you" if m.to_s == "foo"
+    if m.to_s == "foo"
+      remove_method m
+      raise "no foo for you"
+    end
   end
 end
