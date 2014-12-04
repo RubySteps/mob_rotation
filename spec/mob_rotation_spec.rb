@@ -40,8 +40,6 @@ describe do
     @output ||= File.readlines('/tmp/results.txt').map(&:strip).reject(&:empty?)
   end
 
-  it "allows the database file to be specified"
-
   it "defaults to 'rotate.txt' when no database file is specified" do
     if backup = File.exists?('./rotate.txt')
       FileUtils.mv('./rotate.txt', './rotate.txt.backup')
@@ -245,6 +243,4 @@ describe do
     expect(stdout_output).to include("Time to rotate")
     expect(stdout_output).to include("\a")
   end
-
-  xit "runs the timer when rotating"
 end
