@@ -216,8 +216,8 @@ describe "mob_rotation command line tool" do
       run_rotate 'add Ralph'
       run_rotate 'add Ralph'
 
-      expect(output.select {|l| l.include?('Ralph') }.size).to eq(1)
-      expect(output).to include("user name already exists")
+      expect(output).to include("user name 'Ralph' already exists")
+      expect(output.select {|l| l.include?('Ralph') }.size).to eq(2)
     end
   end
 

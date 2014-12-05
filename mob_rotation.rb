@@ -86,7 +86,7 @@ class MobRotation
   def add_mobster(*mobsters)
     mobsters.each do |mobster|
       if @mobsters.include?(mobster)
-        write "user name already exists"
+        write "user name '#{mobster}' already exists"
         next
       end
       @mobsters << mobster
