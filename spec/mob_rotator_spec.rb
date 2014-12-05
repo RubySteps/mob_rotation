@@ -50,9 +50,9 @@ describe MobRotation do
       expect(File.read(file_name)).to include("\nPhil")
     end
 
-    it "errors on adding duplicate mobster name" do
-      mob_rotator.add_mobster "Rosie"
-      expect { mob_rotator.add_mobster "Rosie" }.to raise_error
+    it "skips adding duplicate mobster name" do
+      mob_rotator.add_mobster "Rosie", "Rosie"
+      expect(File.read(file_name)).to eq("Rosie\n")
     end
   end
   

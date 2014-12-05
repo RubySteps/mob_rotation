@@ -85,7 +85,7 @@ class MobRotation
 
   def add_mobster(*mobsters)
     mobsters.each do |mobster|
-      raise if @mobsters.include?(mobster)
+      next if @mobsters.include?(mobster)
       @mobsters << mobster
     end
 

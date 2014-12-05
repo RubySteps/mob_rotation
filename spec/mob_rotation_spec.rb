@@ -211,6 +211,13 @@ describe "mob_rotation command line tool" do
       run_rotate 'add Phil Steve'
       expect(output).to include("Mobster Phil", "Mobster Steve")
     end
+
+    it "new name cannot match existing name" do
+      run_rotate 'add Ralph'
+      run_rotate 'add Ralph'
+
+      expect(output.select {|l| l.include?('Ralph') }.size).to eq(1)
+    end
   end
 
   context "command: ruby mob_rotation remove one_name [two three]" do
