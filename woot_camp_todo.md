@@ -6,11 +6,13 @@
 * blank user for no apparent reason *** DONE
 * name with trailing whitespace? DONE
 
+
+* disappearing emails...
+
 * what should rotate do if next user has no email? ****
 
 BUGS
 
-* disappearing emails... 
 
 IDEA
 
