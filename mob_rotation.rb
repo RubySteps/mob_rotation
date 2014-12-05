@@ -74,15 +74,23 @@ class MobRotation
       when 0
         write "git username: #{person}"
         write "git user email: #{@emails[index]}"
-        if @emails[index].empty?
+        if @emails[index].to_s.empty?
           write "Driver #{person}"
         else
           write "Driver #{person} <#{@emails[index]}>"
         end
       when 1
-        write "Navigator #{person}"
+        if @emails[index].to_s.empty?
+          write "Navigator #{person}"
+        else
+          write "Navigator #{person} <#{@emails[index]}>"
+        end
       else
-        write "Mobster #{person}"
+        if @emails[index].to_s.empty?
+          write "Mobster #{person}"
+        else
+          write "Mobster #{person} <#{@emails[index]}>"
+        end
       end
     end
   end

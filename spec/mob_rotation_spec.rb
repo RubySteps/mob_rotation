@@ -99,13 +99,16 @@ describe "mob_rotation command line tool" do
 
     describe "git stuff" do
 
-      it "includes the email address in rotation output" do
+      it "includes the email addresses in rotation output" do
         remove_temp_rotation_db
         add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
-
+        add_name_and_email_to_temp_db 'Bob Example', 'bob@example.com'
+        add_name_and_email_to_temp_db 'Joe Example', 'joe@example.com'
         run_rotate 'rotate'
 
-        expect(output).to include("Driver Phoebe Example <phoebe@example.com>")
+        expect(output).to include("Driver Bob Example <bob@example.com>",
+                                  "Navigator Joe Example <joe@example.com>",
+                                  "Mobster Phoebe Example <phoebe@example.com>")
       end
 
       it "outputs the new git username when running rotate" do
