@@ -1,5 +1,5 @@
-* establish behavior in the tests *****
-* pending tests drive the team nuts ****
+* establish behavior in the tests ***** 
+* pending tests drive the team nuts **** DONE
 
 * what happens when two people have the same name? ****
 * what should rotate do if next user has no email? **** 
