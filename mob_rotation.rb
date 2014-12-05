@@ -74,24 +74,20 @@ class MobRotation
       when 0
         write "git username: #{person}"
         write "git user email: #{@emails[index]}"
-        if @emails[index].to_s.empty?
-          write "Driver #{person}"
-        else
-          write "Driver #{person} <#{@emails[index]}>"
-        end
+        format_mobster("Driver", person, @emails[index])
       when 1
-        if @emails[index].to_s.empty?
-          write "Navigator #{person}"
-        else
-          write "Navigator #{person} <#{@emails[index]}>"
-        end
+        format_mobster("Navigator", person, @emails[index])
       else
-        if @emails[index].to_s.empty?
-          write "Mobster #{person}"
-        else
-          write "Mobster #{person} <#{@emails[index]}>"
-        end
+        format_mobster("Mobster", person, @emails[index])
       end
+    end
+  end
+
+  def format_mobster(role, person, email)
+    if email.to_s.empty?
+      write "#{role} #{person}"
+    else
+      write "#{role} #{person} <#{email}>"
     end
   end
 
