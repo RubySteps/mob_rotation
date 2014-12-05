@@ -1,14 +1,14 @@
-* establish behavior in the tests ***** 
+* establish behavior in the tests ***** DONE
 * pending tests drive the team nuts **** DONE
 
-* what happens when two people have the same name? ****
+* what happens when two people have the same name? ****  DONE
 * what should rotate do if next user has no email? **** 
 
 * blank user for no apparent reason ***
+* name with trailing whitespace? DONE
 
 BUGS
 
-* name with trailing whitespace?
 * disappearing emails... 
 
 IDEA

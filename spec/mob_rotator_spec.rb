@@ -54,6 +54,11 @@ describe MobRotation do
       mob_rotator.add_mobster "Rosie", "Rosie"
       expect(File.read(file_name)).to eq("Rosie\n")
     end
+
+    it "strips leading and trailing whitespace" do
+      mob_rotator.add_mobster " \n   Rosie  \n  "
+      expect(File.read(file_name)).to eq("Rosie\n")
+    end
   end
   
   describe "#remove_mobster" do
