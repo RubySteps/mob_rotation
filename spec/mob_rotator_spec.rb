@@ -59,6 +59,11 @@ describe MobRotation do
       mob_rotator.add_mobster " \n   Rosie  \n  "
       expect(File.read(file_name)).to eq("Rosie\n")
     end
+
+    it "does not allow blank usernames" do
+      expect { mob_rotator.add_mobster " " }.
+        to raise_error
+    end
   end
   
   describe "#remove_mobster" do

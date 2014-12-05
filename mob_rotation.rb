@@ -85,10 +85,13 @@ class MobRotation
 
   def add_mobster(*mobsters)
     mobsters.map(&:strip).each do |mobster|
+      raise if mobster.empty?
+
       if @mobsters.include?(mobster)
         write "user name '#{mobster}' already exists"
         next
       end
+
       @mobsters << mobster
     end
 
