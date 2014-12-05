@@ -7,7 +7,7 @@ mobster_names = ARGV[2..-1]
 git_dir = ENV['MOB_GIT_DIR'] || File.join(Dir.pwd, ".git")
 
 def command_router(command, mobster_names, file_name, git_dir)
-  mob_rotator = MobRotation.new(MobRotation::Database.new(file_name), git_dir)
+  mob_rotator = MobRotation.new(Database.new(file_name), git_dir)
   case command
   when nil
     mob_rotator.show_mobsters
