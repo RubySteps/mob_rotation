@@ -5,6 +5,8 @@ describe MobRotation do
 
   let(:mob_rotator) { MobRotation.new(MobRotation::Database.new(file_name), "./tmp/test_project/.git") }
 
+  before { FileUtils.rm_f(file_name) }
+
   describe "#show_mobsters" do
 
     let(:file_name) { "test.txt" }
@@ -40,21 +42,17 @@ describe MobRotation do
       mob_rotator.add_mobster 'Jackie'
       mob_rotator.add_mobster 'Phil'
 
-      expect(File.read(file_name)).to eq("Bob\nPhoebe\nJoe\nJackie\nPhil\n")
+      expect(File.read(file_name)).to eq("Jackie\nPhil\n")
     end
 
-    it "adds a mobster with no db file" do
-      FileUtils.rm(file_name)
-
-      mob_rotator.add_mobster 'Jackie'
-
-      expect(File.read(file_name)).to include('Jackie')
-     end
-
     it "accepts more than one mobster" do
-      
       mob_rotator.add_mobster "Jackie", "Phil"
       expect(File.read(file_name)).to include("\nPhil")
+    end
+
+    it "errors on adding duplicate mobster name" do
+      mob_rotator.add_mobster "Rosie"
+      expect { mob_rotator.add_mobster "Rosie" }.to raise_error
     end
   end
   
@@ -62,8 +60,6 @@ describe MobRotation do
     let(:file_name) { "test_remove.txt" }
     
     before do
-      FileUtils.rm_f(file_name)
-
       File.open(file_name, "w") do |file|
         file << "Bob\n" << "Phoebe\n" << "Joe"
       end
@@ -80,7 +76,6 @@ describe MobRotation do
     let(:file_name) { "test_remove.txt" }
     
     before do
-      FileUtils.rm_f(file_name)
       File.open(file_name, "w") do |file|
         file << "Bob\n" << "Phoebe\n" << "Joe\n"
       end
@@ -95,17 +90,19 @@ describe MobRotation do
   end
 
   describe ".extract_email_from(entry)" do
+    let(:file_name) { "irrelevant_file" }
+
     after(:each) do
-      FileUtils.rm_f("irrelevant_file")
+      FileUtils.rm_f(file_name)
     end
     
     it "returns the email address" do
-      email = MobRotation.new(MobRotation::Database.new("irrelevant_file"), "irrelevant git dir").extract_email_from('a <b@example.com>')
+      email = MobRotation.new(MobRotation::Database.new(file_name), "irrelevant git dir").extract_email_from('a <b@example.com>')
       expect(email).to eq('b@example.com')
     end
 
     it "it handles arbitary email addresses" do
-      email = MobRotation.new(MobRotation::Database.new('irrelevant_file'), "irrelevant git dir").extract_email_from('bob <bob@example.com>')
+      email = MobRotation.new(MobRotation::Database.new(file_name), "irrelevant git dir").extract_email_from('bob <bob@example.com>')
       expect(email).to eq('bob@example.com')
     end
 
