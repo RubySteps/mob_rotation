@@ -10,7 +10,7 @@ class Database
     FileUtils.touch(filename) unless File.exist?(filename)
   end
 
-  def write(names, emails, mobsters)
+  def write(mobsters)
     File.open(@filename, 'w') do |file|
       mobsters.each { |mobster| file << format_mobster(mobster.name, mobster.email) << "\n" }
     end

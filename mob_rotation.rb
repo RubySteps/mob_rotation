@@ -6,16 +6,9 @@ class MobRotation
   def initialize(database, git_dir)
     @git_dir = git_dir
     @database = database
-    @real_mobsters = []
 
-    @mobsters = @database.sanitized_entries_in do | entry |
+    @real_mobsters = @database.sanitized_entries_in do | entry |
       mobster = build_mobster entry
-      @real_mobsters << mobster
-      mobster.to_s
-    end
-
-    @emails = @database.sanitized_entries_in do |entry|
-      extract_email_from(entry)
     end
   end
 
@@ -67,7 +60,6 @@ class MobRotation
         next
       end
 
-      @mobsters << mobster
       @real_mobsters << Mobster.new(mobster)
     end
 
@@ -77,7 +69,6 @@ class MobRotation
   def remove_mobster(given_mobster)
     @real_mobsters.each_with_index do |mobster, i|
       if found_mobster(mobster, given_mobster)
-        @mobsters.delete_at(i)
         @real_mobsters.delete_at(i)
       end
     end
@@ -116,9 +107,7 @@ class MobRotation
   end
 
   def rotate
-    @mobsters << @mobsters.shift
     @real_mobsters << @real_mobsters.shift
-    @emails << @emails.shift
     # FIX: Hacky BS because of weird test output redirection
     system "git --git-dir=#{@git_dir} config user.name '#{@real_mobsters.first.name}'" rescue nil
     system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
@@ -145,7 +134,7 @@ class MobRotation
   private
 
   def sync!
-    @database.write(@mobsters, @emails, @real_mobsters)
+    @database.write(@real_mobsters)
   end
 
   def found_mobster(line, mobster)
