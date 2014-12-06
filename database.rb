@@ -10,9 +10,9 @@ class Database
     FileUtils.touch(filename) unless File.exist?(filename)
   end
 
-  def write(names, emails)
+  def write(names, emails, mobsters)
     File.open(@filename, 'w') do |file|
-      names.zip(emails).each { |name, email| file << format_mobster(name.to_s, email) << "\n" }
+      mobsters.each { |mobster| file << format_mobster(mobster.name, mobster.email) << "\n" }
     end
   end
 

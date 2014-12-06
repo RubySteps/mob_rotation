@@ -145,7 +145,7 @@ class MobRotation
   private
 
   def sync!
-    @database.write(@mobsters, @emails)
+    @database.write(@mobsters, @emails, @real_mobsters)
   end
 
   def found_mobster(line, mobster)
