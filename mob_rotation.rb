@@ -39,22 +39,22 @@ class MobRotation
     @real_mobsters.each_with_index do |person, index|
       case index
       when 0
-        write "git username: #{person.to_s}"
-        write "git user email: #{@emails[index]}"
-        format_mobster("Driver", person.to_s, @emails[index])
+        write "git username: #{person.name}"
+        write "git user email: #{person.email}"
+        format_mobster("Driver", person)
       when 1
-        format_mobster("Navigator", person.to_s, @emails[index])
+        format_mobster("Navigator", person)
       else
-        format_mobster("Mobster", person.to_s, @emails[index])
+        format_mobster("Mobster", person)
       end
     end
   end
 
-  def format_mobster(role, person, email)
-    if email.to_s.empty?
-      write "#{role} #{person.to_s}"
+  def format_mobster(role, person)
+    if person.email.to_s.empty?
+      write "#{role} #{person.name}"
     else
-      write "#{role} #{person.to_s.strip} <#{email.strip}>"
+      write "#{role} #{person.name.strip} <#{person.email.strip}>"
     end
   end
 
