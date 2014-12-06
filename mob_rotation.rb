@@ -51,16 +51,16 @@ class MobRotation
     end
   end
 
-  def add_mobster(*mobsters)
-    mobsters.map(&:to_s).map(&:strip).each do |mobster|
-      raise if mobster.empty?
+  def add_mobster(*mobsters_to_add)
+    mobsters_to_add.map(&:to_s).map(&:strip).each do |mobster_to_add|
+      raise if mobster_to_add.empty?
 
-      if @real_mobsters.map(&:name).include?(mobster)
-        write "user name '#{mobster}' already exists"
+      if @real_mobsters.map(&:name).include?(mobster_to_add)
+        write "user name '#{mobster_to_add}' already exists"
         next
       end
 
-      @real_mobsters << Mobster.new(mobster)
+      @real_mobsters << Mobster.new(mobster_to_add)
     end
 
     sync!
