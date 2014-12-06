@@ -178,7 +178,7 @@ describe "mob_rotation command line tool" do
         expect(git_email).to eq('joe@example.com')
       end
 
-      it "falls back to a default email address when the driver has none" do
+      xit "falls back to a default email address when the driver has none" do
         remove_temp_rotation_db
         add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
         add_name_and_email_to_temp_db 'Bob Example'

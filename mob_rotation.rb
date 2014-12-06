@@ -6,14 +6,23 @@ class MobRotation
   def initialize(database, git_dir)
     @git_dir = git_dir
     @database = database
+    @real_mobsters = []
 
-    @mobsters = @database.clean_entries_in do | entry |
-      Mobster.new(extract_name_from(entry))
+    @mobsters = @database.sanitized_entries_in do | entry |
+      mobster = build_mobster entry
+      @real_mobsters << mobster
+      mobster.to_s
     end
 
-    @emails = @database.clean_entries_in do |entry|
+    @emails = @database.sanitized_entries_in do |entry|
       extract_email_from(entry)
     end
+  end
+
+  def build_mobster(entry)
+    name = extract_name_from(entry)
+    email = extract_email_from(entry)
+    Mobster.new(name, email)
   end
 
   def extract_email_from(entry)
@@ -30,27 +39,27 @@ class MobRotation
     @mobsters.each_with_index do |person, index|
       case index
       when 0
-        write "git username: #{person}"
+        write "git username: #{person.to_s}"
         write "git user email: #{@emails[index]}"
-        format_mobster("Driver", person, @emails[index])
+        format_mobster("Driver", person.to_s, @emails[index])
       when 1
-        format_mobster("Navigator", person, @emails[index])
+        format_mobster("Navigator", person.to_s, @emails[index])
       else
-        format_mobster("Mobster", person, @emails[index])
+        format_mobster("Mobster", person.to_s, @emails[index])
       end
     end
   end
 
   def format_mobster(role, person, email)
     if email.to_s.empty?
-      write "#{role} #{person}"
+      write "#{role} #{person.to_s}"
     else
-      write "#{role} #{person} <#{email}>"
+      write "#{role} #{person.to_s.strip} <#{email.strip}>"
     end
   end
 
   def add_mobster(*mobsters)
-    mobsters.map(&:strip).each do |mobster|
+    mobsters.map(&:to_s).map(&:strip).each do |mobster|
       raise if mobster.empty?
 
       if @mobsters.include?(mobster)
@@ -106,7 +115,7 @@ class MobRotation
     @mobsters << @mobsters.shift
     @emails << @emails.shift
     # Hacky BS because of weird test output redirection
-    system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.to_s.strip}'" rescue nil
     system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
     sync!
   end
@@ -135,7 +144,7 @@ class MobRotation
   end
 
   def found_mobster(line, mobster)
-    line && line.strip == mobster
+    line.to_s.strip == mobster.to_s
   end
 
   def extract_name_from(entry)

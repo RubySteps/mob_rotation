@@ -1,6 +1,8 @@
 class Mobster
-  def initialize(name)
+  attr_reader :name, :email
+  def initialize(name, email=nil)
     @name = name
+    @email = email
   end
 
   def to_s

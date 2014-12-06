@@ -1,9 +1,9 @@
 class Database
-  def clean_entries_in
+  def sanitized_entries_in
     dirty_entries = each_database_entry(@filename) do |entry|
-      yield entry
+      yield entry.to_s.strip
     end
-    cleanup dirty_entries
+    #cleanup dirty_entries
   end
 
   def initialize(filename)
@@ -13,7 +13,7 @@ class Database
 
   def write(names, emails)
     File.open(@filename, 'w') do |file|
-      names.zip(emails).each { |name, email| file << format_mobster(name, email) << "\n" }
+      names.zip(emails).each { |name, email| file << format_mobster(name.to_s, email) << "\n" }
     end
   end
 

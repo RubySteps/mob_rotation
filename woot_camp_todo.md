@@ -8,8 +8,10 @@
 
 
 * disappearing emails...
+* some emails nil, some blank?
 
-* what should rotate do if next user has no email? ****
+* what should rotate do if next user has no email?
+* encapsulate the mobster class
 
 BUGS
 
