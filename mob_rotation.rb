@@ -36,7 +36,7 @@ class MobRotation
   end
 
   def show_mobsters()
-    @mobsters.each_with_index do |person, index|
+    @real_mobsters.each_with_index do |person, index|
       case index
       when 0
         write "git username: #{person.to_s}"
@@ -68,14 +68,18 @@ class MobRotation
       end
 
       @mobsters << mobster
+      @real_mobsters << Mobster.new(mobster)
     end
 
     sync!
   end
 
   def remove_mobster(given_mobster)
-    @mobsters.each do |mobster|
-      @mobsters.delete(mobster) if found_mobster(mobster, given_mobster)
+    @mobsters.each_with_index do |mobster, i|
+      if found_mobster(mobster, given_mobster)
+        @mobsters.delete(mobster)
+        @real_mobsters.delete_at(i)
+      end
     end
     sync!
   end
@@ -113,6 +117,7 @@ class MobRotation
 
   def rotate
     @mobsters << @mobsters.shift
+    @real_mobsters << @real_mobsters.shift
     @emails << @emails.shift
     # FIX: Hacky BS because of weird test output redirection
     system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.to_s.strip}'" rescue nil

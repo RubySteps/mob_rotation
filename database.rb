@@ -3,7 +3,6 @@ class Database
     dirty_entries = each_database_entry(@filename) do |entry|
       yield entry.to_s.strip
     end
-    #cleanup dirty_entries
   end
 
   def initialize(filename)
@@ -25,9 +24,5 @@ class Database
     File.readlines(filename).map do |entry|
       yield entry
     end
-  end
-
-  def cleanup(list)
-    list.map(&:to_s).map(&:strip)
   end
 end
