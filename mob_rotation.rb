@@ -62,7 +62,7 @@ class MobRotation
     mobsters.map(&:to_s).map(&:strip).each do |mobster|
       raise if mobster.empty?
 
-      if @mobsters.include?(mobster)
+      if @real_mobsters.map(&:name).include?(mobster)
         write "user name '#{mobster}' already exists"
         next
       end
@@ -75,9 +75,9 @@ class MobRotation
   end
 
   def remove_mobster(given_mobster)
-    @mobsters.each_with_index do |mobster, i|
+    @real_mobsters.each_with_index do |mobster, i|
       if found_mobster(mobster, given_mobster)
-        @mobsters.delete(mobster)
+        @mobsters.delete_at(i)
         @real_mobsters.delete_at(i)
       end
     end
@@ -120,13 +120,13 @@ class MobRotation
     @real_mobsters << @real_mobsters.shift
     @emails << @emails.shift
     # FIX: Hacky BS because of weird test output redirection
-    system "git --git-dir=#{@git_dir} config user.name '#{@mobsters.first.to_s.strip}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.name '#{@real_mobsters.first.name}'" rescue nil
     system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
     sync!
   end
 
   def extract_next_mobster_email
-    email = @emails.first.to_s.strip
+    email = @real_mobsters.first.email.to_s.strip
     email.empty? ? "mob@rubysteps.com" : email
   end
 
