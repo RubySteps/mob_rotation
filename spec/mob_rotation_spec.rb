@@ -5,6 +5,7 @@ describe "mob_rotation command line tool" do
   let(:temp_rotation_db) { '/tmp/rotation_test.txt' }
 
   before do
+    `rm -rf ./tmp/test_project`
     `mkdir -p ./tmp/test_project`
     `git init ./tmp/test_project`
   end
@@ -178,7 +179,7 @@ describe "mob_rotation command line tool" do
         expect(git_email).to eq('joe@example.com')
       end
 
-      xit "falls back to a default email address when the driver has none" do
+      it "falls back to a default email address when the driver has none" do
         remove_temp_rotation_db
         add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
         add_name_and_email_to_temp_db 'Bob Example'
