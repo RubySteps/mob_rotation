@@ -29,28 +29,39 @@ class MobRotation
   end
 
   def command_router(command, mobster_names)
-    case command
-    when nil
-      show_mobsters
-    when "rotate"
-      rotate
-      show_mobsters
-    when "random"
-      random(ARGV[2])
-      show_mobsters
-    when "add"
-      add_mobster(*mobster_names)
-      show_mobsters
-    when "remove"
-      remove_mobsters(*mobster_names)
-      show_mobsters
-    when "help"
-      show_help
-    when "run_with_timer"
-      countdown_to_rotate(ARGV[2].to_i)
-    else
-      inform_lovely_user(command)
-    end
+    command_mappings = {
+      nil => lambda { |command, *mobster_names|
+        show_mobsters
+      },
+      "rotate" => lambda { |command, *mobster_names|
+        rotate
+        show_mobsters
+      },
+      "random" => lambda { |command, *mobster_names|
+        random(ARGV[2])
+        show_mobsters
+      },
+      "add" => lambda { |command, *mobster_names|
+        add_mobster(*mobster_names)
+        show_mobsters
+      },
+      "remove" => lambda { |command, *mobster_names|
+        remove_mobsters(*mobster_names)
+        show_mobsters
+      },
+      "help" => lambda { |command, *mobster_names|
+        show_help
+      },
+      "run_with_timer" => lambda { |command, *mobster_names|
+        countdown_to_rotate(ARGV[2].to_i)
+      }
+    }
+
+    command_mappings.fetch(command) {
+      lambda { |command, *mobster_names|
+        inform_lovely_user(command)
+      }
+    }.call(command, *mobster_names)
   end
 
   def show_mobsters()
