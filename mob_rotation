@@ -7,4 +7,4 @@ mobster_names = ARGV[2..-1]
 git_dir = ENV['MOB_GIT_DIR'] || File.join(Dir.pwd, ".git")
 
 mob_rotator = MobRotation.new(Database.new(file_name), git_dir)
-mob_rotator.command_router(command, mobster_names, file_name, git_dir)
+mob_rotator.command_router(command, mobster_names)

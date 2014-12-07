@@ -28,7 +28,7 @@ class MobRotation
     puts text
   end
 
-  def command_router(command, mobster_names, file_name, git_dir)
+  def command_router(command, mobster_names)
     case command
     when nil
       show_mobsters
