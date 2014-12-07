@@ -114,6 +114,10 @@ class MobRotation
     sync!
   end
 
+  def random
+    puts "Randomized Output"
+  end
+
   def extract_next_mobster_email
     email = @real_mobsters.first.email.to_s.strip
     email.empty? ? "mob@rubysteps.com" : email

@@ -99,6 +99,7 @@ describe "mob_rotation command line tool" do
       expect(output).to include("Randomized Output")
       expect(output).to include("Driver Bob", "Navigator Phoebe")
     end
+
   end
 
   context "command: ruby mob_rotation rotate" do
