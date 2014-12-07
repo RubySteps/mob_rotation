@@ -11,7 +11,9 @@
 * some emails nil, some blank?
 
 * what should rotate do if next user has no email?
-* encapsulate the mobster class
+* encapsulate the mobster class DONE
+
+
 
 BUGS
 

@@ -14,6 +14,9 @@ def command_router(command, mobster_names, file_name, git_dir)
   when "rotate"
     mob_rotator.rotate
     mob_rotator.show_mobsters
+  when "random"
+    puts "Randomized Output"
+    mob_rotator.show_mobsters
   when "add"
     mob_rotator.add_mobster(*mobster_names)
     mob_rotator.show_mobsters

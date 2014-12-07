@@ -92,6 +92,15 @@ describe "mob_rotation command line tool" do
     end
   end
 
+  context "command: ruby mob_rotation random" do
+    it "Identifies list as randomized" do
+      run_rotate 'random SEED=0'
+
+      expect(output).to include("Randomized Output")
+      expect(output).to include("Driver Bob", "Navigator Phoebe")
+    end
+  end
+
   context "command: ruby mob_rotation rotate" do
     it "changes the order of rotation" do
       run_rotate 'rotate'
