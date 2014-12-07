@@ -106,18 +106,28 @@ class MobRotation
     show_help
   end
 
-  def rotate
-    @real_mobsters << @real_mobsters.shift
+  def rotate_mobsters(&rotation_algorithm)
+    rotation_algorithm.call
+
     git_config_update
     sync
   end
 
+  def rotate
+    puts ""
+
+    rotate_mobsters do
+      @real_mobsters << @real_mobsters.shift
+    end
+  end
+
   def random(seed=nil)
     puts "Randomized Output"
-    srand(seed.to_i) if seed
-    @real_mobsters.shuffle!
-    git_config_update
-    sync
+
+    rotate_mobsters do
+      srand(seed.to_i) if seed
+      @real_mobsters.shuffle!
+    end
   end
 
   def extract_next_mobster_email
