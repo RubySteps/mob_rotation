@@ -104,6 +104,12 @@ describe "mob_rotation command line tool" do
       expect(output).to include("Driver Phoebe", "Navigator Bob")
     end
 
+    it "saves the rotation order" do
+      run_rotate 'random 0'
+      run_rotate
+      expect(output).to include("Driver Phoebe", "Navigator Bob")
+    end
+
     it "updates the git username" do
       remove_temp_rotation_db
       add_name_and_email_to_temp_db 'Bob Example', 'bob@example.com'

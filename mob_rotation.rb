@@ -117,6 +117,7 @@ class MobRotation
     srand(seed.to_i) if seed
     @real_mobsters.shuffle!
     git_config_update
+    sync
   end
 
   def extract_next_mobster_email
