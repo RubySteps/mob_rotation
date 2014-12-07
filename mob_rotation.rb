@@ -63,7 +63,7 @@ class MobRotation
       @real_mobsters << Mobster.new(mobster_to_add)
     end
 
-    sync!
+    sync
   end
 
   def remove_mobster(given_mobster)
@@ -72,7 +72,7 @@ class MobRotation
         @real_mobsters.delete_at(i)
       end
     end
-    sync!
+    sync
   end
 
   def remove_mobsters(*mobsters)
@@ -109,7 +109,7 @@ class MobRotation
   def rotate
     @real_mobsters << @real_mobsters.shift
     git_config_update
-    sync!
+    sync
   end
 
   def random(seed=nil)
@@ -144,7 +144,7 @@ class MobRotation
     system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
   end
 
-  def sync!
+  def sync
     @database.write(@real_mobsters)
   end
 
