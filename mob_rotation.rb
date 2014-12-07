@@ -116,7 +116,8 @@ class MobRotation
 
   def random(seed=nil)
     puts "Randomized Output"
-    rotate if seed == '1'
+    srand(seed.to_i) if seed
+    @real_mobsters.shuffle!
   end
 
   def extract_next_mobster_email
