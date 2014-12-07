@@ -114,8 +114,9 @@ class MobRotation
     sync!
   end
 
-  def random
+  def random(seed=nil)
     puts "Randomized Output"
+    rotate if seed == '1'
   end
 
   def extract_next_mobster_email
