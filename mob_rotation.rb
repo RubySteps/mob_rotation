@@ -34,45 +34,54 @@ class MobRotation
     COMMAND_MAPPINGS[name] = block
   end
 
-  define_command("show") do |command, *mobster_names|
+  define_command("show") do
     show_mobsters
   end
 
-  define_command("run_with_timer") do |command, *mobster_names|
+  define_command("run_with_timer") do
     countdown_to_rotate(ARGV[2].to_i)
   end
 
-  define_command("rotate") do |command, *mobster_names|
+  define_command("rotate") do
     rotate
     show_mobsters
   end
 
-  define_command("random") do |command, *mobster_names|
+  define_command("random") do
     random(ARGV[2])
     show_mobsters
   end
 
-  define_command("add") do |command, *mobster_names|
+  define_command("add") do |*mobster_names|
     add_mobster(*mobster_names)
     show_mobsters
   end
 
-  define_command("remove") do |command, *mobster_names|
+  define_command("remove") do |*mobster_names|
     remove_mobsters(*mobster_names)
     show_mobsters
   end
 
-  define_command("help") do |command, *mobster_names|
+  define_command("help") do
     show_help
   end
 
   def command_router(command, mobster_names)
     command_implementation = COMMAND_MAPPINGS.fetch(command) {
-      lambda { |command, *mobster_names|
+      lambda { |command|
         inform_lovely_user(command)
       }
     }
-    instance_exec(command, *mobster_names, &command_implementation)
+    case command_implementation.arity
+    when -2
+      instance_exec(command, *mobster_names, &command_implementation)
+    when -1
+      instance_exec(*mobster_names, &command_implementation)
+    when 1
+      instance_exec(command, &command_implementation)
+    else
+      instance_exec(&command_implementation)
+    end
   end
 
   def show_mobsters()
