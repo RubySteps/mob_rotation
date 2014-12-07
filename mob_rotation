@@ -6,30 +6,5 @@ command = ARGV[1]
 mobster_names = ARGV[2..-1]
 git_dir = ENV['MOB_GIT_DIR'] || File.join(Dir.pwd, ".git")
 
-def command_router(command, mobster_names, file_name, git_dir)
-  mob_rotator = MobRotation.new(Database.new(file_name), git_dir)
-  case command
-  when nil
-    mob_rotator.show_mobsters
-  when "rotate"
-    mob_rotator.rotate
-    mob_rotator.show_mobsters
-  when "random"
-    mob_rotator.random(ARGV[2])
-    mob_rotator.show_mobsters
-  when "add"
-    mob_rotator.add_mobster(*mobster_names)
-    mob_rotator.show_mobsters
-  when "remove"
-    mob_rotator.remove_mobsters(*mobster_names)
-    mob_rotator.show_mobsters
-  when "help"
-    mob_rotator.show_help
-  when "run_with_timer"
-    mob_rotator.countdown_to_rotate(ARGV[2].to_i)
-  else
-    mob_rotator.inform_lovely_user(command)
-  end
-end
-
-command_router(command, mobster_names, file_name, git_dir)
+mob_rotator = MobRotation.new(Database.new(file_name), git_dir)
+mob_rotator.command_router(command, mobster_names, file_name, git_dir)
