@@ -1,38 +1,11 @@
 require 'time'
 require_relative 'mobster'
 require_relative 'database'
+require_relative 'command_routing'
 
 class MobRotation
-  def initialize(database, git_dir)
-    @git_dir = git_dir
-    @database = database
-
-    @real_mobsters = @database.sanitized_entries_in do | entry |
-      mobster = build_mobster entry
-    end
-  end
-
-  def build_mobster(entry)
-    name = extract_name_from(entry)
-    email = extract_email_from(entry)
-    Mobster.new(name, email)
-  end
-
-  def extract_email_from(entry)
-    if entry =~ /\<(.*)\>/
-      $1
-    end
-  end
-
-  def write(text)
-    puts text
-  end
-
-  COMMAND_MAPPINGS = {  }
-
-  def self.define_command(name, &block)
-    COMMAND_MAPPINGS[name] = block
-  end
+  include CommandRouting
+  extend CommandRouting::ClassMethods
 
   define_command("show") do
     show_mobsters
@@ -66,22 +39,29 @@ class MobRotation
     show_help
   end
 
-  def command_router(command, mobster_names)
-    command_implementation = COMMAND_MAPPINGS.fetch(command) {
-      lambda { |command|
-        inform_lovely_user(command)
-      }
-    }
-    case command_implementation.arity
-    when -2
-      instance_exec(command, *mobster_names, &command_implementation)
-    when -1
-      instance_exec(*mobster_names, &command_implementation)
-    when 1
-      instance_exec(command, &command_implementation)
-    else
-      instance_exec(&command_implementation)
+  def initialize(database, git_dir)
+    @git_dir = git_dir
+    @database = database
+
+    @real_mobsters = @database.sanitized_entries_in do | entry |
+      mobster = build_mobster entry
     end
+  end
+
+  def build_mobster(entry)
+    name = extract_name_from(entry)
+    email = extract_email_from(entry)
+    Mobster.new(name, email)
+  end
+
+  def extract_email_from(entry)
+    if entry =~ /\<(.*)\>/
+      $1
+    end
+  end
+
+  def write(text)
+    puts text
   end
 
   def show_mobsters()
