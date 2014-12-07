@@ -2,7 +2,7 @@
 require_relative 'mob_rotation'
 
 file_name = ARGV[0] || 'rotate.txt'
-command = ARGV[1]
+command = ARGV[1] || 'show'
 mobster_names = ARGV[2..-1]
 git_dir = ENV['MOB_GIT_DIR'] || File.join(Dir.pwd, ".git")
 

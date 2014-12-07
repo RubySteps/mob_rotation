@@ -28,40 +28,51 @@ class MobRotation
     puts text
   end
 
-  def command_router(command, mobster_names)
-    command_mappings = {
-      nil => lambda { |command, *mobster_names|
-        show_mobsters
-      },
-      "rotate" => lambda { |command, *mobster_names|
-        rotate
-        show_mobsters
-      },
-      "random" => lambda { |command, *mobster_names|
-        random(ARGV[2])
-        show_mobsters
-      },
-      "add" => lambda { |command, *mobster_names|
-        add_mobster(*mobster_names)
-        show_mobsters
-      },
-      "remove" => lambda { |command, *mobster_names|
-        remove_mobsters(*mobster_names)
-        show_mobsters
-      },
-      "help" => lambda { |command, *mobster_names|
-        show_help
-      },
-      "run_with_timer" => lambda { |command, *mobster_names|
-        countdown_to_rotate(ARGV[2].to_i)
-      }
-    }
+  COMMAND_MAPPINGS = {  }
 
-    command_mappings.fetch(command) {
+  def self.define_command(name, &block)
+    COMMAND_MAPPINGS[name] = block
+  end
+
+  define_command("show") do |command, *mobster_names|
+    show_mobsters
+  end
+
+  define_command("run_with_timer") do |command, *mobster_names|
+    countdown_to_rotate(ARGV[2].to_i)
+  end
+
+  define_command("rotate") do |command, *mobster_names|
+    rotate
+    show_mobsters
+  end
+
+  define_command("random") do |command, *mobster_names|
+    random(ARGV[2])
+    show_mobsters
+  end
+
+  define_command("add") do |command, *mobster_names|
+    add_mobster(*mobster_names)
+    show_mobsters
+  end
+
+  define_command("remove") do |command, *mobster_names|
+    remove_mobsters(*mobster_names)
+    show_mobsters
+  end
+
+  define_command("help") do |command, *mobster_names|
+    show_help
+  end
+
+  def command_router(command, mobster_names)
+    command_implementation = COMMAND_MAPPINGS.fetch(command) {
       lambda { |command, *mobster_names|
         inform_lovely_user(command)
       }
-    }.call(command, *mobster_names)
+    }
+    instance_exec(command, *mobster_names, &command_implementation)
   end
 
   def show_mobsters()
