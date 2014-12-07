@@ -108,9 +108,7 @@ class MobRotation
 
   def rotate
     @real_mobsters << @real_mobsters.shift
-    # FIX: Hacky BS because of weird test output redirection
-    system "git --git-dir=#{@git_dir} config user.name '#{@real_mobsters.first.name}'" rescue nil
-    system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
+    git_config_update
     sync!
   end
 
@@ -118,6 +116,7 @@ class MobRotation
     puts "Randomized Output"
     srand(seed.to_i) if seed
     @real_mobsters.shuffle!
+    git_config_update
   end
 
   def extract_next_mobster_email
@@ -138,6 +137,12 @@ class MobRotation
   end
 
   private
+
+  def git_config_update
+    #FIX yo that rescue nil is bogus
+    system "git --git-dir=#{@git_dir} config user.name '#{@real_mobsters.first.name}'" rescue nil
+    system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
+  end
 
   def sync!
     @database.write(@real_mobsters)

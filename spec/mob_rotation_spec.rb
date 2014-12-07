@@ -103,6 +103,17 @@ describe "mob_rotation command line tool" do
       run_rotate 'random 0'
       expect(output).to include("Driver Phoebe", "Navigator Bob")
     end
+
+    it "updates the git username" do
+      remove_temp_rotation_db
+      add_name_and_email_to_temp_db 'Bob Example', 'bob@example.com'
+      add_name_and_email_to_temp_db 'Phoebe Example', 'phoebe@example.com'
+
+      run_rotate 'random 0'
+
+      git_username = `git --git-dir=./tmp/test_project/.git config user.name`.strip
+      expect(git_username).to eq('Phoebe Example')
+    end
   end
 
   context "command: ruby mob_rotation rotate" do
