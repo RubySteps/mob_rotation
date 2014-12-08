@@ -21,3 +21,6 @@ Upcoming Features -
 
 Credits -
 
+
+
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/RubySteps/mob_rotation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
