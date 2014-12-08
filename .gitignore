@@ -1,1 +1,12 @@
 *~
+*_test.*
+rotation.txt
+test*.txt
+results.txt
+.bundle/*
+bin/*
+rotate.txt
+\#*\#
+.\#*
+tmp
+vendor
