@@ -1,5 +1,6 @@
 require_relative '../mob_rotation'
 require "fileutils"
+require "timeout"
 
 describe "mob_rotation command line tool" do
   let(:temp_rotation_db) { '/tmp/rotation_test.txt' }
@@ -34,7 +35,7 @@ describe "mob_rotation command line tool" do
     # TODO we have no idea why this is necessary, and don't like it
     @output = nil
 
-    `MOB_GIT_DIR='./tmp/test_project/.git' ruby /home/rubysteps/mob_rotation/mob_rotation #{temp_rotation_db} #{command} #{redirect}`
+    `MOB_GIT_DIR='./tmp/test_project/.git' #{RbConfig.ruby} #{File.join(Dir.pwd, 'mob_rotation')} #{temp_rotation_db} #{command} #{redirect}`
   end
 
   def output
@@ -47,7 +48,7 @@ describe "mob_rotation command line tool" do
         FileUtils.mv('./rotate.txt', './rotate.txt.backup')
       end
       FileUtils.cp(temp_rotation_db, './rotate.txt')
-      `ruby /home/rubysteps/mob_rotation/mob_rotation > /tmp/results.txt`
+      `#{RbConfig.ruby} #{File.join(Dir.pwd, 'mob_rotation')} > /tmp/results.txt`
       begin
         expect(output).to include("Driver Bob","Navigator Phoebe")
       ensure
