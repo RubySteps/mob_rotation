@@ -270,6 +270,10 @@ describe "mob_rotation command line tool" do
   end
 
   context "command: ruby mob_rotation run_with_timer n" do
+    def we_probably_called_rotate(some_output)
+      expect(some_output).to include("Driver")
+    end
+
     it "it runs for a specific amount of time" do
       ts = Time.now
       run_rotate 'run_with_timer 3'
@@ -297,6 +301,14 @@ describe "mob_rotation command line tool" do
       expect(tf - ts).to be_within(1).of(2.0 + MobRotation.minimum_sleep_between_beeps * MobRotation.number_of_beeps)
       expect(stdout_output).to include("Time to rotate")
       expect(stdout_output).to include("\a")
+    end
+
+    it "runs the timer when rotating" do
+      ts = Time.now
+      stdout_output = run_rotate_with_specified_redirect 'rotate_with_timer 2'
+      tf = Time.now
+      expect(tf - ts).to be_within(1).of(2.0 + MobRotation.minimum_sleep_between_beeps * MobRotation.number_of_beeps)
+      we_probably_called_rotate(stdout_output)
     end
   end
 end

@@ -39,6 +39,12 @@ class MobRotation
     show_help
   end
 
+  define_command("rotate_with_timer") do
+    rotate
+    show_mobsters
+    countdown_to_rotate(ARGV[2].to_i)
+  end
+
   def initialize(database, git_dir)
     @git_dir = git_dir
     @database = database
