@@ -123,7 +123,7 @@ describe "mob_rotation command line tool" do
     end
   end
 
-  context "command: ruby mob_rotation rotate" do
+  context "command: ruby mob_rotation DB rotate" do
     it "changes the order of rotation" do
       run_rotate 'rotate'
       expect(output).to include("Driver Phoebe","Navigator Bob")
