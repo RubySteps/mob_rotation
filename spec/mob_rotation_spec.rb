@@ -35,7 +35,7 @@ describe "mob_rotation command line tool" do
     # TODO we have no idea why this is necessary, and don't like it
     @output = nil
 
-    `MOB_GIT_DIR='./tmp/test_project/.git' #{RbConfig.ruby} #{File.join(Dir.pwd, 'mob_rotation')} #{temp_rotation_db} #{command} #{redirect}`
+    `MOB_GIT_DIR='./tmp/test_project/.git' DB_FILE='#{temp_rotation_db}' #{RbConfig.ruby} #{File.join(Dir.pwd, 'mob_rotation')}  #{command} #{redirect}`
   end
 
   def output
