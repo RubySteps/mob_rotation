@@ -99,7 +99,7 @@ describe MobRotation do
     end
   end
 
-  describe ".extract_email_from(entry)" do
+  describe "#extract_email_from(entry)" do
     let(:file_name) { "irrelevant_file" }
 
     after(:each) do
