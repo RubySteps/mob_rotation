@@ -270,7 +270,7 @@ describe "mob_rotation command line tool" do
     end
   end
 
-  context "command: ruby mob_rotation run_with_timer n" do
+  context "command: ruby mob_rotation DB run_with_timer N" do
     it "it runs for a specific amount of time" do
       ts = Time.now
       run_rotate 'run_with_timer 3'
