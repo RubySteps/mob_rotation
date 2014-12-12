@@ -82,16 +82,10 @@ describe "mob_rotation command line tool" do
     it "prints out help on an unknown command" do
       run_rotate 'arbitrary'
       expected = ['Unknown command arbitrary',
-                  'Available commands are:',
-                  'show',
-                  '<database txt file> help',
-                  '<database txt file> rotate',
-                  '<database txt file> add <name1> [name2]',
-                  '<database txt file> remove <name1> [name2]',
-                  '<database txt file> run_with_timer [seconds]'
+                  'Available commands are:'
                  ]
 
-      expect(output).to eq(expected)
+      expect(output).to include(*expected)
     end
   end
 
