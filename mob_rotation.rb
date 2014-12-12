@@ -12,7 +12,7 @@ class MobRotation
   end
 
   define_command("run_with_timer") do
-    countdown_to_rotate(ARGV[2].to_i)
+    countdown_to_rotate(ARGV[1].to_i)
   end
 
   define_command("rotate") do
@@ -21,7 +21,7 @@ class MobRotation
   end
 
   define_command("random") do
-    random(ARGV[2])
+    random(ARGV[1])
     show_mobsters
   end
 
@@ -117,13 +117,15 @@ class MobRotation
     end
   end
 
-  def show_help()
+  def show_help
     puts ['Available commands are:',
-    '<database txt file> help',
-    '<database txt file> rotate',
-    '<database txt file> add <name1> [name2]',
-    '<database txt file> remove <name1> [name2]',
-    '<database txt file> run_with_timer [seconds]'
+    'show',
+    'help',
+    'rotate',
+    'random',
+    'add <name1> [name2]',
+    'remove <name1> [name2]',
+    'run_with_timer [seconds]'
     ]
   end
 
