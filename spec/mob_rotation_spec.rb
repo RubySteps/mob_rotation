@@ -66,6 +66,7 @@ describe "mob_rotation command line tool" do
     it "prints out help" do
       run_rotate 'help'
       expected = ['Available commands are:',
+                  'show',
                   '<database txt file> help',
                   '<database txt file> rotate',
                   '<database txt file> add <name1> [name2]',
@@ -82,6 +83,7 @@ describe "mob_rotation command line tool" do
       run_rotate 'arbitrary'
       expected = ['Unknown command arbitrary',
                   'Available commands are:',
+                  'show',
                   '<database txt file> help',
                   '<database txt file> rotate',
                   '<database txt file> add <name1> [name2]',

@@ -119,6 +119,7 @@ class MobRotation
 
   def show_help()
     puts ['Available commands are:',
+    'show',
     '<database txt file> help',
     '<database txt file> rotate',
     '<database txt file> add <name1> [name2]',
