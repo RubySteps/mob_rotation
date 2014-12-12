@@ -10,3 +10,4 @@ rotate.txt
 .\#*
 tmp
 vendor
+*.swp
