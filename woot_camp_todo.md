@@ -11,6 +11,7 @@
 * Use gem rubocop for refactoring https://github.com/bbatsov/rubocop *
 * Remove FOO stuff
 * investigate commit-signing aka no Linus-spoofing
+* review naming of mob_rotator_spec
 
 
 Wootcamp #1
