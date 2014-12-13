@@ -1,13 +1,14 @@
 class Database
-  def sanitized_entries_in
-    dirty_entries = each_database_entry(@filename) do |entry|
-      yield entry.to_s.strip
-    end
-  end
 
   def initialize(filename)
     @filename = filename
     FileUtils.touch(filename) unless File.exist?(filename)
+  end
+
+  def sanitized_entries_in
+    dirty_entries = each_database_entry(@filename) do |entry|
+      yield entry.to_s.strip
+    end
   end
 
   def write(mobsters)
