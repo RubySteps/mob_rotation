@@ -1,25 +1,19 @@
+* extra whitespace on database file * * * *
+* Adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * *
+* Erich's tmux message sending thing * * *
+* prompt "rotate now?" instead of saying time to rotate - avoid re-running the tool? * *
 * Rusty's ruby tmux color changing thing *
-* Erich's tmux message sending thing * * * *
-* Joe wants to look at Rusty's ruby tmux color changing thing
 * remove #write method *
 * keyword arguments *
-* extra whitespace on database file * * * *
 * use email addresses instead of names to determine uniqueness *
 * move test-helping methods to spec_helper.rb (maybe?) *
-* mock/stub long running processes? Maybe I misunderstand what these could be used for.
+* mock/stub long running processes? Maybe I misunderstand what these could be used for. *
+* Use gem rubocop for refactoring https://github.com/bbatsov/rubocop *
 * Remove FOO stuff
-* Adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * *
-* Use gem rubocop for refactoring https://github.com/bbatsov/rubocop
-* prompt "rotate now?" instead of saying time to rotate - avoid re-running the tool? *
 * investigate commit-signing aka no Linus-spoofing
 
 
-
-
-
-
-
-
+Wootcamp #1
 * establish behavior in the tests ***** DONE
 * pending tests drive the team nuts **** DONE
 
