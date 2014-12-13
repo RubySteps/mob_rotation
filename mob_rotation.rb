@@ -77,7 +77,7 @@ class MobRotation
     if person.email.to_s.empty?
       write "#{role} #{person.name}"
     else
-      write "#{role} #{person.name.strip} <#{person.email.strip}>"
+      write "#{role} #{person.name} <#{person.email}>"
     end
   end
 
@@ -163,9 +163,8 @@ class MobRotation
   end
 
   def extract_next_mobster_email
-    email = @real_mobsters.first.email.to_s.strip
-    result = email.empty? ? "mob@rubysteps.com" : email
-    result.to_s.strip
+    email = @real_mobsters.first.email
+    email.empty? ? "mob@rubysteps.com" : email
   end
 
 
@@ -190,7 +189,6 @@ class MobRotation
     result = if entry =~ /\<(.*)\>/
       $1
     end
-    result.to_s.strip
   end
 
   private
