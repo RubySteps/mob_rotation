@@ -95,8 +95,10 @@ class MobRotation
         write "user name '#{mobster_to_add}' already exists"
         next
       end
+      name = extract_name_from(mobster_to_add).to_s.strip
+      email = extract_email_from(mobster_to_add).to_s.strip
 
-      @real_mobsters << Mobster.new(mobster_to_add)
+      @real_mobsters << Mobster.new(name, email)
     end
 
     sync
