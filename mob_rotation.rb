@@ -54,12 +54,6 @@ class MobRotation
     Mobster.new(name, email)
   end
 
-  def extract_email_from(entry)
-    if entry =~ /\<(.*)\>/
-      $1
-    end
-  end
-
   def write(text)
     puts text
   end
@@ -95,10 +89,8 @@ class MobRotation
         write "user name '#{mobster_to_add}' already exists"
         next
       end
-      name = extract_name_from(mobster_to_add).to_s.strip
-      email = extract_email_from(mobster_to_add).to_s.strip
 
-      @real_mobsters << Mobster.new(name, email)
+      @real_mobsters << build_mobster(mobster_to_add)
     end
 
     sync
@@ -172,8 +164,10 @@ class MobRotation
 
   def extract_next_mobster_email
     email = @real_mobsters.first.email.to_s.strip
-    email.empty? ? "mob@rubysteps.com" : email
+    result = email.empty? ? "mob@rubysteps.com" : email
+    result.to_s.strip
   end
+
 
   def time_to_rotate
     puts "Time to rotate!"
@@ -185,6 +179,18 @@ class MobRotation
 
   def self.number_of_beeps
     5
+  end
+
+  def extract_name_from(entry)
+    entry_to_array = entry.split('')
+    entry_to_array.take_while { |c| c != '<' }.join('').strip
+  end
+
+  def extract_email_from(entry)
+    result = if entry =~ /\<(.*)\>/
+      $1
+    end
+    result.to_s.strip
   end
 
   private
@@ -201,11 +207,6 @@ class MobRotation
 
   def found_mobster(line, mobster)
     line.to_s.strip == mobster.to_s
-  end
-
-  def extract_name_from(entry)
-    entry_to_array = entry.split('')
-    entry_to_array.take_while { |c| c != '<' }.join('')
   end
 end
 
