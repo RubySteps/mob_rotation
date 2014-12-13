@@ -1,0 +1,33 @@
+# Default settings here:
+# https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+# Find enabled settings here:
+# https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml
+# We also prefer `or` and `and` for control flow:
+# http://devblog.avdi.org/2014/08/26/how-to-use-rubys-english-andor-operators-without-going-nuts/
+AllCops:
+  Exclude:
+    - bin/**
+    - config/**/*
+    - script/**
+# Follow the Jim Weirich school of thought on usage of do/end vs. {...}:
+# http://devblog.avdi.org/2011/07/26/the-procedurefunction-block-convention-in-ruby/
+Blocks:
+  Enabled: false
+CollectionMethods:
+  PreferredMethods:
+    map: "collect"
+    find: "detect"
+    find_all: "select"
+    reduce: "inject"
+Documentation:
+  Enabled: false
+EachWithObject:
+  Enabled: false
+Lambda:
+  Enabled: false
+RegexpLiteral:
+  MaxSlashes: 0
+StringLiterals:
+  EnforcedStyle: double_quotes
+TrailingBlankLines:
+  EnforcedStyle: final_newline

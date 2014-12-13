@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require "mob_rotation"
+
+file_name = ENV["DB_FILE"] || "rotate.txt"
+command = ARGV[0] || "show"
+mobster_names = ARGV[1..-1]
+git_dir = ENV["MOB_GIT_DIR"] || File.join(Dir.pwd, ".git")
+
+mob_rotator = MobRotation::Rotation.new(
+                MobRotation::Database.new(file_name),
+                git_dir
+              )
+mob_rotator.command_router(command, mobster_names)

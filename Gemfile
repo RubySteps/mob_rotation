@@ -1,4 +1,4 @@
-ruby '2.1.2'
 source 'https://rubygems.org'
 
-gem 'rspec'
+# Specify your gem's dependencies in mob_rotation.gemspec
+gemspec
