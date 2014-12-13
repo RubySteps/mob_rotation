@@ -54,16 +54,12 @@ class MobRotation
     Mobster.new(name, email)
   end
 
-  def write(text)
-    puts text
-  end
-
   def show_mobsters()
     @real_mobsters.each_with_index do |person, index|
       case index
       when 0
-        write "git username: #{person.name}"
-        write "git user email: #{person.email}"
+        puts "git username: #{person.name}"
+        puts "git user email: #{person.email}"
         format_mobster("Driver", person)
       when 1
         format_mobster("Navigator", person)
@@ -75,9 +71,9 @@ class MobRotation
 
   def format_mobster(role, person)
     if person.email.to_s.empty?
-      write "#{role} #{person.name}"
+      puts "#{role} #{person.name}"
     else
-      write "#{role} #{person.name} <#{person.email}>"
+      puts "#{role} #{person.name} <#{person.email}>"
     end
   end
 
@@ -86,7 +82,7 @@ class MobRotation
       raise if mobster_to_add.empty?
 
       if @real_mobsters.map(&:name).include?(mobster_to_add)
-        write "user name '#{mobster_to_add}' already exists"
+        puts "user name '#{mobster_to_add}' already exists"
         next
       end
 
