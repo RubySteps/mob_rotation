@@ -6,7 +6,7 @@ require "mob_rotation/version"
 Gem::Specification.new do |spec|
   spec.name          = "mob_rotation"
   spec.version       = MobRotation::VERSION
-  spec.authors       = ["Pat Maddox"]
+  spec.authors       = ["Pat Maddox", "RubySteps Mob Programming Team"]
   spec.email         = ["pat@rubysteps.com"]
   spec.summary       = "Manage a mob list during a mobbing session"
   spec.description   = "Provides an executable to manage a mob list"
