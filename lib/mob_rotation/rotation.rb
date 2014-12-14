@@ -61,11 +61,19 @@ module MobRotation
         when 0
           puts "git username: #{person.name}"
           puts "git user email: #{person.email}"
-          puts format_mobster("Driver", person, :green)
+          if ENV['TABLE']
+            puts format_mobster("Driver   ", person, :green)
+          else
+            puts format_mobster("Driver", person, :green)
+          end
         when 1
           puts format_mobster("Navigator", person, :blue)
         else
-          puts format_mobster("Mobster", person)
+          if ENV['TABLE']
+            puts format_mobster("Mobster  ", person)
+          else
+            puts format_mobster("Mobster", person)
+          end
         end
       end
     end

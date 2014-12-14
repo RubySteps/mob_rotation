@@ -63,11 +63,16 @@ describe "mob_rotation command line tool" do
     end
 
     it "prints out rotation order in colors if COLOR=true" do
-      # set env variable
-      # run command passing in environment variable
       run_rotate "show", "COLOR=true"
-      # expect it to have extra characters for colors
       expect(our_output).to include("\e[0;32;49mDriver Bob\e[0m", "\e[0;34;49mNavigator Phoebe\e[0m")
+    end
+
+    it "prints out rotation order as tableised view" do
+      add_name_and_email_to_temp_db("Joe")
+      run_rotate "show", "TABLE=true"
+      expect(our_output).to include("Driver    Bob",
+                                    "Navigator Phoebe",
+                                    "Mobster   Joe")
     end
   end
 
