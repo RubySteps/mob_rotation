@@ -1,5 +1,5 @@
-require_relative '../mob_rotation'
 require "fileutils"
+require "mob_rotation"
 
 class Output
   attr_accessor :mobsters
@@ -12,9 +12,8 @@ end
 
 module FooFighter
   def method_added(m)
-    if m.to_s == "foo"
-      remove_method m
-      raise "no foo for you"
-    end
+    return unless m.to_s == "foo"
+    remove_method(m)
+    fail("no foo for you")
   end
 end

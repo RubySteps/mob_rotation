@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe FooFighter do
   it "raises an error when a class defines `#foo`" do
