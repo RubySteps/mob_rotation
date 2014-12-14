@@ -54,26 +54,30 @@ module MobRotation
       Mobster.new(name, email)
     end
 
-    def show_mobsters()
+    def show_mobsters
       @real_mobsters.each_with_index do |person, index|
         case index
         when 0
           puts "git username: #{person.name}"
           puts "git user email: #{person.email}"
-          format_mobster("Driver", person)
+          tmp_driver_output = format_mobster("Driver", person)
+          tmp_driver_output = "START_GREEN_" + tmp_driver_output + "_END_GREEN" if ENV['COLOR']
+          puts tmp_driver_output
         when 1
-          format_mobster("Navigator", person)
+          tmp_navigator_output = format_mobster("Navigator", person)
+          tmp_navigator_output = "START_BLUE_" + tmp_navigator_output + "_END_BLUE" if ENV['COLOR']
+          puts tmp_navigator_output
         else
-          format_mobster("Mobster", person)
+          puts format_mobster("Mobster", person)
         end
       end
     end
 
     def format_mobster(role, person)
       if person.email.to_s.empty?
-        puts "#{role} #{person.name}"
+        "#{role} #{person.name}"
       else
-        puts "#{role} #{person.name} <#{person.email}>"
+        "#{role} #{person.name} <#{person.email}>"
       end
     end
 

@@ -27,15 +27,15 @@ describe "mob_rotation command line tool" do
     add_name_and_email_to_temp_db("Phoebe")
   end
 
-  def run_rotate(command = nil)
-    run_rotate_with_specified_redirect(command, "> /tmp/results.txt")
+  def run_rotate(command = nil, env = nil)
+    run_rotate_with_specified_redirect(command, env, "> /tmp/results.txt")
   end
 
-  def run_rotate_with_specified_redirect(command = nil, redirect = nil)
+  def run_rotate_with_specified_redirect(command = nil, env = nil, redirect = nil)
     # TODO: we have no idea why this is necessary, and don't like it
     @our_output = nil
 
-    `MOB_GIT_DIR='./tmp/test_project/.git' DB_FILE='#{temp_rotation_db}' #{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")}  #{command} #{redirect}`
+    `MOB_GIT_DIR='./tmp/test_project/.git' DB_FILE='#{temp_rotation_db}' #{env} #{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")}  #{command} #{redirect}`
   end
 
   def our_output
@@ -60,6 +60,14 @@ describe "mob_rotation command line tool" do
     it "prints out the rotation order" do
       run_rotate
       expect(our_output).to include("Driver Bob", "Navigator Phoebe")
+    end
+
+    it "prints out rotation order in colors if COLOR=true" do
+      # set env variable
+      # run command passing in environment variable
+      run_rotate "show", "COLOR=true"
+      # expect it to have extra characters for colors
+      expect(our_output).to include("START_GREEN_Driver Bob_END_GREEN", "START_BLUE_Navigator Phoebe_END_BLUE")
     end
   end
 
