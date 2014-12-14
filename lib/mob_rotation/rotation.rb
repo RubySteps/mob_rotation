@@ -1,4 +1,5 @@
 require "time"
+require "colorize"
 require "mob_rotation/command_routing"
 require "mob_rotation/mobster"
 
@@ -60,24 +61,26 @@ module MobRotation
         when 0
           puts "git username: #{person.name}"
           puts "git user email: #{person.email}"
-          tmp_driver_output = format_mobster("Driver", person)
-          tmp_driver_output = "START_GREEN_" + tmp_driver_output + "_END_GREEN" if ENV['COLOR']
-          puts tmp_driver_output
+          puts format_mobster("Driver", person, :green)
         when 1
-          tmp_navigator_output = format_mobster("Navigator", person)
-          tmp_navigator_output = "START_BLUE_" + tmp_navigator_output + "_END_BLUE" if ENV['COLOR']
-          puts tmp_navigator_output
+          puts format_mobster("Navigator", person, :blue)
         else
           puts format_mobster("Mobster", person)
         end
       end
     end
 
-    def format_mobster(role, person)
-      if person.email.to_s.empty?
+    def format_mobster(role, person, color=nil)
+      formatted = if person.email.to_s.empty?
         "#{role} #{person.name}"
       else
         "#{role} #{person.name} <#{person.email}>"
+      end
+
+      if color && ENV['COLOR']
+        formatted.send color
+      else
+        formatted
       end
     end
 

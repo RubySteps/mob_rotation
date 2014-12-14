@@ -67,7 +67,7 @@ describe "mob_rotation command line tool" do
       # run command passing in environment variable
       run_rotate "show", "COLOR=true"
       # expect it to have extra characters for colors
-      expect(our_output).to include("START_GREEN_Driver Bob_END_GREEN", "START_BLUE_Navigator Phoebe_END_BLUE")
+      expect(our_output).to include("\e[0;32;49mDriver Bob\e[0m", "\e[0;34;49mNavigator Phoebe\e[0m")
     end
   end
 
