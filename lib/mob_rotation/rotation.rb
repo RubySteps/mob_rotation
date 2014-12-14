@@ -61,24 +61,19 @@ module MobRotation
         when 0
           puts "git username: #{person.name}"
           puts "git user email: #{person.email}"
-          if ENV['TABLE']
-            puts format_mobster("Driver   ", person, :green)
-          else
-            puts format_mobster("Driver", person, :green)
-          end
+          puts format_mobster("Driver", person, :green)
         when 1
           puts format_mobster("Navigator", person, :blue)
         else
-          if ENV['TABLE']
-            puts format_mobster("Mobster  ", person)
-          else
-            puts format_mobster("Mobster", person)
-          end
+          puts format_mobster("Mobster", person)
         end
       end
     end
 
     def format_mobster(role, person, color=nil)
+      width = ENV['TABLE'] ? "navigator".size : 0
+      role = sprintf("%-#{width}s", role)
+
       formatted = if person.email.to_s.empty?
         "#{role} #{person.name}"
       else
