@@ -1,9 +1,9 @@
-* extra whitespace on database file * * * *
+* extra whitespace on database file * * * * DONE
 * Adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * *
 * Erich's tmux message sending thing * * *
 * prompt "rotate now?" instead of saying time to rotate - avoid re-running the tool? * *
 * Rusty's ruby tmux color changing thing *
-* remove #write method *
+* remove #write method * DONE
 * keyword arguments *
 * use email addresses instead of names to determine uniqueness *
 * move test-helping methods to spec_helper.rb (maybe?) *
