@@ -1,0 +1,33 @@
+PATH
+  remote: .
+  specs:
+    mob_rotation (0.1.1)
+      colorize (~> 0.7.4)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.7.4)
+    diff-lcs (1.2.5)
+    rake (10.1.0)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-core (3.1.4)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-mocks (3.1.1)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.6)
+  mob_rotation!
+  rake (~> 10.0)
+  rspec (~> 3.1)
