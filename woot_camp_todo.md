@@ -1,5 +1,6 @@
 * extra whitespace on database file * * * * DONE
-* Adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * *
+* adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * * DONE
+* tableize output WIP
 * Erich's tmux message sending thing * * *
 * prompt "rotate now?" instead of saying time to rotate - avoid re-running the tool? * *
 * Rusty's ruby tmux color changing thing *
