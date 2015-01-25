@@ -1,3 +1,21 @@
+* extra whitespace on database file * * * * DONE
+* adjust output to color navigator and driver differently than mobsters <~ Rusty gets credit for that one * * * * DONE
+* tableize output WIP
+* Erich's tmux message sending thing * * *
+* prompt "rotate now?" instead of saying time to rotate - avoid re-running the tool? * *
+* Rusty's ruby tmux color changing thing *
+* remove #write method * DONE
+* keyword arguments *
+* use email addresses instead of names to determine uniqueness *
+* move test-helping methods to spec_helper.rb (maybe?) *
+* mock/stub long running processes? Maybe I misunderstand what these could be used for. *
+* Use gem rubocop for refactoring https://github.com/bbatsov/rubocop *
+* Remove FOO stuff
+* investigate commit-signing aka no Linus-spoofing
+* review naming of mob_rotator_spec
+
+
+Wootcamp #1
 * establish behavior in the tests ***** DONE
 * pending tests drive the team nuts **** DONE
 

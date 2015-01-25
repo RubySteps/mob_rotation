@@ -27,15 +27,15 @@ describe "mob_rotation command line tool" do
     add_name_and_email_to_temp_db("Phoebe")
   end
 
-  def run_rotate(command = nil)
-    run_rotate_with_specified_redirect(command, "> /tmp/results.txt")
+  def run_rotate(command = nil, env = nil)
+    run_rotate_with_specified_redirect(command, env, "> /tmp/results.txt")
   end
 
-  def run_rotate_with_specified_redirect(command = nil, redirect = nil)
+  def run_rotate_with_specified_redirect(command = nil, env = nil, redirect = nil)
     # TODO: we have no idea why this is necessary, and don't like it
     @our_output = nil
 
-    `MOB_GIT_DIR='./tmp/test_project/.git' DB_FILE='#{temp_rotation_db}' #{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")}  #{command} #{redirect}`
+    `MOB_GIT_DIR='./tmp/test_project/.git' DB_FILE='#{temp_rotation_db}' #{env} #{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")}  #{command} #{redirect}`
   end
 
   def our_output
@@ -60,6 +60,19 @@ describe "mob_rotation command line tool" do
     it "prints out the rotation order" do
       run_rotate
       expect(our_output).to include("Driver Bob", "Navigator Phoebe")
+    end
+
+    it "prints out rotation order in colors if COLOR=true" do
+      run_rotate "show", "COLOR=true"
+      expect(our_output).to include("\e[0;32;49mDriver Bob\e[0m", "\e[0;34;49mNavigator Phoebe\e[0m")
+    end
+
+    it "prints out rotation order as tableised view" do
+      add_name_and_email_to_temp_db("Joe")
+      run_rotate "show", "TABLE=true"
+      expect(our_output).to include("Driver    Bob",
+                                    "Navigator Phoebe",
+                                    "Mobster   Joe")
     end
   end
 
@@ -233,7 +246,9 @@ describe "mob_rotation command line tool" do
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
           .strip
-        expect(git_email).to eq("mob@rubysteps.com")
+        git_global_user_email = `git config --global user.email`
+          .strip  
+        expect(git_email).to eq(git_global_user_email)
       end
 
       it "updates the email in the mobsters database when rotating, even when someone's missing an email address" do

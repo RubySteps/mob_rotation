@@ -59,9 +59,16 @@ describe MobRotation::Rotation do
       expect(File.read(file_name)).to eq("Rosie\n")
     end
 
-    it "strips leading and trailing whitespace" do
-      mob_rotator.add_mobster(" \n   Rosie  \n  ")
+    it "strips leading and trailing whitespace from name input only" do
+      mob_rotator.add_mobster " \n   Rosie  \n  "
       expect(File.read(file_name)).to eq("Rosie\n")
+    end
+
+    it "strips whitespace between name and email address" do
+      # adding a mobster with name and email with extra whitespace
+      mob_rotator.add_mobster "Hello World   <hello@world.com>"
+      # expect the database to contain the inputted mobster without extra whitespace
+      expect(File.read(file_name)).to eq("Hello World <hello@world.com>\n")
     end
 
     it "does not allow blank usernames" do
