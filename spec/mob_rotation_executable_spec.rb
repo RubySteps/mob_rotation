@@ -246,7 +246,9 @@ describe "mob_rotation command line tool" do
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
           .strip
-        expect(git_email).to eq("mob@rubysteps.com")
+        git_global_user_email = `git config --global user.email`
+          .strip  
+        expect(git_email).to eq(git_global_user_email)
       end
 
       it "updates the email in the mobsters database when rotating, even when someone's missing an email address" do
