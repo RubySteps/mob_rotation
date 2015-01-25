@@ -3,7 +3,7 @@ require "timeout"
 require "mob_rotation"
 
 describe "mob_rotation command line tool" do
-  let(:temp_rotation_db) { "/tmp/rotation_test.txt" }
+  let(:temp_rotation_db) { "./tmp/rotation_test.txt" }
 
   before do
     `rm -rf ./tmp/test_project`
@@ -28,7 +28,7 @@ describe "mob_rotation command line tool" do
   end
 
   def run_rotate(command = nil, env = nil)
-    run_rotate_with_specified_redirect(command, env, "> /tmp/results.txt")
+    run_rotate_with_specified_redirect(command, env, "> ./tmp/results.txt")
   end
 
   def run_rotate_with_specified_redirect(command = nil, env = nil, redirect = nil)
@@ -39,7 +39,7 @@ describe "mob_rotation command line tool" do
   end
 
   def our_output
-    @our_output ||= File.readlines("/tmp/results.txt").collect(&:strip)
+    @our_output ||= File.readlines("./tmp/results.txt").collect(&:strip)
       .reject(&:empty?)
   end
 
@@ -49,7 +49,7 @@ describe "mob_rotation command line tool" do
         FileUtils.mv("./rotate.txt", "./rotate.txt.backup")
       end
       FileUtils.cp(temp_rotation_db, "./rotate.txt")
-      `#{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")} > /tmp/results.txt`
+      `#{RbConfig.ruby} #{File.join(Dir.pwd, "bin/mob_rotation")} > ./tmp/results.txt`
       begin
         expect(our_output).to include("Driver Bob", "Navigator Phoebe")
       ensure
@@ -310,8 +310,9 @@ describe "mob_rotation command line tool" do
       ts = Time.now
       run_rotate("run_with_timer 3")
       tf = Time.now
+      start_and_stop_difference = (tf - ts).round
       threshold = 3.0 + MobRotation::Rotation.minimum_sleep_between_beeps * MobRotation::Rotation.number_of_beeps
-      expect(tf - ts).to be_within(1).of(threshold)
+      expect(start_and_stop_difference).to be_within(1).of(threshold)
       expect(our_output).to include("Time to rotate")
     end
 
@@ -331,7 +332,8 @@ describe "mob_rotation command line tool" do
       ts = Time.now
       stdout_output = run_rotate_with_specified_redirect("run_with_timer 2")
       tf = Time.now
-      expect(tf - ts).to be_within(1).of(2.0 + MobRotation::Rotation.minimum_sleep_between_beeps * MobRotation::Rotation.number_of_beeps)
+      start_and_stop_difference = (tf - ts).round
+      expect(start_and_stop_difference).to be_within(1).of(2.0 + MobRotation::Rotation.minimum_sleep_between_beeps * MobRotation::Rotation.number_of_beeps)
       expect(stdout_output).to include("Time to rotate")
       expect(stdout_output).to include("\a")
     end
