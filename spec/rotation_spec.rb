@@ -3,12 +3,12 @@ require "spec_helper"
 describe MobRotation::Rotation do
   extend FooFighter
 
-  let(:mob_rotator) {
+  let(:mob_rotator) do
     MobRotation::Rotation.new(
       MobRotation::Database.new(file_name),
       "./tmp/test_project/.git"
     )
-  }
+  end
 
   before { FileUtils.rm_f(file_name) }
 

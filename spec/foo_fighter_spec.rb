@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe FooFighter do
   it "raises an error when a class defines `#foo`" do
-    expect {
+    expect do
       class TestClass
         extend FooFighter
 
@@ -10,7 +10,7 @@ describe FooFighter do
           "shouldn't work"
         end
       end
-    }.to raise_error(/no foo for you/)
+    end.to raise_error(/no foo for you/)
   end
 
   it "removes a method named `#foo`" do

@@ -44,7 +44,7 @@ module MobRotation
       @git_dir = git_dir
       @database = database
 
-      @real_mobsters = @database.sanitized_entries_in do | entry |
+      @real_mobsters = @database.sanitized_entries_in do |entry|
         mobster = build_mobster entry
       end
     end
@@ -70,17 +70,17 @@ module MobRotation
       end
     end
 
-    def format_mobster(role, person, color=nil)
-      width = ENV['TABLE'] ? "navigator".size : 0
+    def format_mobster(role, person, color = nil)
+      width = ENV["TABLE"] ? "navigator".size : 0
       role = sprintf("%-#{width}s", role)
 
       formatted = if person.email.to_s.empty?
-        "#{role} #{person.name}"
-      else
-        "#{role} #{person.name} <#{person.email}>"
+                    "#{role} #{person.name}"
+                  else
+                    "#{role} #{person.name} <#{person.email}>"
       end
 
-      if color && ENV['COLOR']
+      if color && ENV["COLOR"]
         formatted.send color
       else
         formatted
@@ -89,7 +89,7 @@ module MobRotation
 
     def add_mobster(*mobsters_to_add)
       mobsters_to_add.map(&:to_s).map(&:strip).each do |mobster_to_add|
-        raise if mobster_to_add.empty?
+        fail if mobster_to_add.empty?
 
         if @real_mobsters.map(&:name).include?(mobster_to_add)
           puts "user name '#{mobster_to_add}' already exists"
@@ -104,9 +104,7 @@ module MobRotation
 
     def remove_mobster(given_mobster)
       @real_mobsters.each_with_index do |mobster, i|
-        if found_mobster(mobster, given_mobster)
-          @real_mobsters.delete_at(i)
-        end
+        @real_mobsters.delete_at(i) if found_mobster(mobster, given_mobster)
       end
       sync
     end
@@ -118,22 +116,22 @@ module MobRotation
     end
 
     def show_help
-      puts ['Available commands are:',
-      'show',
-      'help',
-      'rotate',
-      'random',
-      'add <name1> [name2]',
-      'remove <name1> [name2]',
-      'run_with_timer [seconds]'
-      ]
+      puts ["Available commands are:",
+            "show",
+            "help",
+            "rotate",
+            "random",
+            "add <name1> [name2]",
+            "remove <name1> [name2]",
+            "run_with_timer [seconds]"
+           ]
     end
 
-    def self.annoying_and_probably_not_accidental_beep(n=number_of_beeps)
+    def self.annoying_and_probably_not_accidental_beep(n = number_of_beeps)
       n.times { print("\a") || sleep(minimum_sleep_between_beeps) }
     end
 
-    def countdown_to_rotate(seconds=300)
+    def countdown_to_rotate(seconds = 300)
       sleep(seconds)
       puts "Time to rotate"
       self.class.annoying_and_probably_not_accidental_beep
@@ -159,7 +157,7 @@ module MobRotation
       end
     end
 
-    def random(seed=nil)
+    def random(seed = nil)
       puts "Randomized Output"
 
       rotate_mobsters do
@@ -172,7 +170,6 @@ module MobRotation
       email = @real_mobsters.first.email
       email.empty? ? "mob@rubysteps.com" : email
     end
-
 
     def time_to_rotate
       puts "Time to rotate!"
@@ -187,20 +184,18 @@ module MobRotation
     end
 
     def extract_name_from(entry)
-      entry_to_array = entry.split('')
-      entry_to_array.take_while { |c| c != '<' }.join('').strip
+      entry_to_array = entry.split("")
+      entry_to_array.take_while { |c| c != "<" }.join("").strip
     end
 
     def extract_email_from(entry)
-      result = if entry =~ /\<(.*)\>/
-        $1
-      end
+      result = Regexp.last_match(1) if entry =~ /\<(.*)\>/
     end
 
     private
 
     def git_config_update
-      #FIX yo that rescue nil is bogus
+      # FIX yo that rescue nil is bogus
       system "git --git-dir=#{@git_dir} config user.name '#{@real_mobsters.first.name}'" rescue nil
       system "git --git-dir=#{@git_dir} config user.email '#{extract_next_mobster_email}'" rescue nil
     end
