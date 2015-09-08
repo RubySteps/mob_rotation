@@ -40,7 +40,7 @@ describe "mob_rotation command line tool" do
 
   def our_output
     @our_output ||= File.readlines("./tmp/results.txt").collect(&:strip)
-      .reject(&:empty?)
+                    .reject(&:empty?)
   end
 
   context "command: ruby mob_rotation" do
@@ -133,7 +133,7 @@ describe "mob_rotation command line tool" do
       run_rotate("random 0")
 
       git_username = `git --git-dir=./tmp/test_project/.git config user.name`
-        .strip
+                     .strip
       expect(git_username).to eq("Phoebe Example")
     end
   end
@@ -208,7 +208,7 @@ describe "mob_rotation command line tool" do
         run_rotate("rotate")
 
         git_username = `git --git-dir=./tmp/test_project/.git config user.name`
-          .strip
+                       .strip
         expect(git_username).to eq("Phoebe Example")
       end
 
@@ -219,7 +219,7 @@ describe "mob_rotation command line tool" do
         run_rotate("rotate")
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
-          .strip
+                    .strip
         expect(git_email).to eq("phoebe@example.com")
       end
 
@@ -233,7 +233,7 @@ describe "mob_rotation command line tool" do
         run_rotate("rotate")
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
-          .strip
+                    .strip
         expect(git_email).to eq("joe@example.com")
       end
 
@@ -245,9 +245,9 @@ describe "mob_rotation command line tool" do
         run_rotate("rotate")
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
-          .strip
+                    .strip
         git_global_user_email = `git config --global user.email`
-          .strip  
+                                .strip
         expect(git_email).to eq(git_global_user_email)
       end
 
@@ -261,7 +261,7 @@ describe "mob_rotation command line tool" do
         run_rotate("rotate")
 
         git_email = `git --git-dir=./tmp/test_project/.git config user.email`
-          .strip
+                    .strip
         expect(git_email).to eq("joe@example.com")
       end
     end
@@ -287,7 +287,7 @@ describe "mob_rotation command line tool" do
       run_rotate("add Ralph")
 
       expect(our_output).to include("user name 'Ralph' already exists")
-      expect(our_output.select { |l| l.include?("Ralph") }.size).to eq(2)
+      expect(our_output.count { |l| l.include?("Ralph") }).to eq(2)
     end
   end
 
@@ -317,9 +317,9 @@ describe "mob_rotation command line tool" do
     end
 
     it "waits until time runs out before stating 'Time to Rotate'" do
-      expect {
+      expect do
         Timeout.timeout(1) { run_rotate("run_with_timer 5") }
-      }.to raise_error(Timeout::Error)
+      end.to raise_error(Timeout::Error)
       expect(our_output).to eq([])
     end
 

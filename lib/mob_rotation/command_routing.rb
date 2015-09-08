@@ -9,11 +9,11 @@ module MobRotation
     end
 
     def command_router(command, mobster_names)
-      command_implementation = CommandRouting::COMMAND_MAPPINGS.fetch(command) {
-        lambda { |command|
+      command_implementation = CommandRouting::COMMAND_MAPPINGS.fetch(command) do
+        lambda do |command|
           inform_lovely_user(command)
-        }
-      }
+        end
+      end
       case command_implementation.arity
       when -2
         instance_exec(command, *mobster_names, &command_implementation)
